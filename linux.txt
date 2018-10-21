@@ -1,0 +1,3018 @@
+--------LFS 101----------
+
+----install app/services/services---
+
+sudo apt-get install
+sudo apt-get update
+sudo apt-get remove
+
+----start stop services----
+
+sudo /etc/init.d/apache2 start
+sudo /etc/init.d/apache2 stop
+sudo /etc/init.d/apache2 restart
+------------
+tasksel > easy install script
+-----------
+cat: used to type out a file (or combine files)
+head: used to show the first few lines of a file
+tail: used to show the last few lines of a file
+man: used to view documentation.
+man > help
+q > quit
+------------
+sudo top > taskmgr
+k > kill
+h > help
+------------
+cd
+cd / > cd ..
+ls > dir
+sudo ls -iname > search
+sudo ls -l > show group ownerships
+sudo chown user file > change ownership
+------------------
+sudo vim file > edit files
+a> insert mode (vim)
+esc> esc insert mode (vim)
+:e file > open another file
+:q > quit vim(:q! force)
+:wq > save and quit
+:w file > save as file
+----------------
+cp original copy > copy
+cp -r original copy > copy recursively
+mv original changed > change name / move 
+pwd > directory name
+~ > one subfolder up
+bash ./script.sh > run script.sh
+chmod +x script.sh > create executable
+./script.sh > run executable
+
+hit Alt-F2 and type in either gnome-terminal
+
+you can stop the GUI desktop with the systemctl utility and most distributions will also work with the telinit command, as in:
+
+sudo systemctl stop gdm  (or sudo telinit 3)
+and restart it (after logging into the console) with:
+
+sudo systemctl start gdm (or sudo telinit 5)
+
+$ which diff >>finds diff program location
+
+$ whereis diff >>finds diff program location
+
+cd - >> prev directory
+
+cd /	Changes your current directory to the root (/) directory (or path you supply)
+
+ls –a	List all files including hidden files and directories (those whose name start with . )
+
+$ ln -s file1 file3 >link -soft
+
+cat	Used for viewing files that are not very long; it does not provide any scroll-back.
+
+tac	Used to look at a file backwards, starting with the last line.
+
+less	Used to view larger files because it is a paging program; it pauses at each screen full of text, provides scroll-back capabilities, and lets you search and navigate within the file. Note: Use / to search for a pattern in the forward direction and ? for a pattern in the backward direction. (An older program named more is still used, but has fewer capabilities.)
+
+tail	Used to print the last 10 lines of a file by default. You can change the number of lines by doing -n 15 or just -15 if you wanted to look at the last 15 lines instead of the default.
+
+head	The opposite of tail; by default, it prints the first 10 lines of a file.
+
+create an empty file using touch:
+$ touch -t 03201600 myfile
+
+mv	Rename a file 
+rm	Remove a file 
+rm –f	Forcefully remove a file
+rm –i	Interactively remove a file
+mv	Rename a directory
+rmdir	Remove an empty directory
+rm -rf	Forcefully remove a directory recursively
+
+A special shorthand notation can be used to put anything written to file descriptor 2 (stderr) in the same place as file descriptor 1 (stdout): 2>&1
+
+$ locate zip | grep bin
+
+sudo updatedb>>updates directory db for search
+
+? 	Matches any single character
+*	Matches any string of characters
+[set]	Matches any character in the set of characters, for example [adf] will match any occurrence of "a", "d", or "f"
+[!set]	Matches any character not in the set of characters
+
+find /usr -type d -name gcc
+
+find -name "*.swp" -exec rm {} ’;’
+
+sudo yum install
+sudo yum info
+sudo yum list install
+sudo yum update
+sudo yum remove
+
+man –f generates the same result as typing whatis.
+
+man –k generates the same result as typing apropos.
+
+$ man 3 printf 
+$ man -a printf
+
+info > gnu documents
+n> next
+p > prev.
+u > one node up
+
+$ man --help
+
+GNOME: gnome-help or yelp
+KDE: khelpcenter
+
+Manage processes using ps and top.
+
+Use at, cron, and sleep to schedule processes in the future or pause them.
+
+kill -SIGKILL <pid> or kill -9 <pid>
+
+The load average can be viewed by running w, top or uptime.
+
+You can put a job in the background by suffixing & to the command, for example: updatedb &
+
+You can either use CTRL-Z to suspend a foreground job or CTRL-C to terminate a foreground job and can always use the bg and fg commands to run a process in the background and foreground, respectively.
+
+The jobs utility displays all jobs running in background
+
+jobs -l
+
+ps -ef displays all the processes
+
+ps -eLf goes one step further and displays one line of information for every thread
+
+ ps aux displays all processes of all users.
+
+ps axo allows you to specify which attributes you want to view.
+
+pstree 
+
+w > load average
+
+The percentage of user jobs running at a lower priority (niceness - ni) is then listed. Idle mode (id) should be low if the load average is high, and vice versa. The percentage of jobs waiting (wa) for I/O is listed. Interrupts include the percentage of hardware (hi) vs. software interrupts (si). Steal time (st) is generally used with virtual machines, which has some of its idle CPU time taken for other uses.
+Process Identification Number (PID)
+Process owner (USER)
+Priority (PR) and nice values (NI)
+Virtual (VIRT), physical (RES), and shared memory (SHR)
+Status (S)
+Percentage of CPU (%CPU) and memory (%MEM) used
+Execution time (TIME+)
+Command (COMMAND).
+
+at > scheduler
+
+crontab -e > scheduler
+
+sleep NUMBER[SUFFIX]
+
+mount /dev/sda5 /home
+
+umount /home
+
+/etc/fstab>mounted filesystems
+
+df -Th (disk-free) will display information about mounted filesystems,
+
+sudo systemctl start nfs
+
+ /etc/exports contains the directories and permissions that a host is willing to share
+
+After modifying the /etc/exports file, you can use the exportfs -av command to notify Linux about the directories you are allowing to be remotely mounted using NFS. (You can also restart NFS with sudo systemctl restart nfs, but this is heavier, as it halts NFS for a short while before starting it up again.)  To make sure the NFS service starts whenever the system is booted, issue sudo systemctl enable nfs.
+
+
+ if it is desired to have the remote filesystem mounted automatically upon system boot, the /etc/fstab
+
+/etc/fstab file might look like the following:
+
+servername:/projects /mnt/nfs/projects nfs defaults 0 0
+
+cp>>Used to copy files.
+
+
+diff [options] <filename1> <filename2>.  diff is meant to be used for text files; for binary files, one can use cmp. 
+
+-c  Provides a listing of differences that include 3 lines of context before and after the lines differing in content
+-r	Used to recursively compare subdirectories, as well as the current directory
+-i	Ignore the case of letters
+-w	Ignore differences in spaces and tabs (white space)
+-q	Be quiet: only report if files are different without listing the differences
+
+$ diff -Nur originalfile newfile > patchfile
+
+patch originalfile patchfile
+
+The real nature of a file can be ascertained by using the file utility
+
+dd - convert and copy a file
+
+rsync sourcefile destinationfile >> copy all tree using diff
+
+cat << EOF > myfile -> creates txt file as myfile with content, press ctrl+d to save and exit
+
+single greater-than sign (>) will send the output of a command to a file. Two greater-than signs (>>) will append new output
+
+To list the currently logged-on users, type who
+
+To identify the current user, type whoami
+
+who the -a option will give more detailed information.
+
+/etc/passwd and /etc/group >> group amd passwd management
+
+sudo useradd bjmoose >> add user
+userdel bjmoose >> delete user
+userdel -r >> to remove home directories
+
+id >> gives information about user
+
+sudo /usr/sbin/groupadd anewgroup >> add group
+sudo /usr/sbin/groupdel anewgroup >> remove group
+
+groups rjsquirrel >> add user to existing group
+sudo /usr/sbin/usermod -G rjsquirrel rjsquirrel >> -G option removes user from group as it defines all groups that user has
+
+These utilities update /etc/group
+
+sudo configuration files are stored in the /etc/sudoers file and in the /etc/sudoers.d/ directory.
+
+
+When you first login to Linux, /etc/profile is read and evaluated, after which the following files are searched (if they exist) in the listed order:
+
+~/.bash_profile
+~/.bash_login
+~/.profile 
+
+ the user must make appropriate changes in ~/.bash_profile to have it include  ~/.bashrc because every time an application launched `/.bashrc will be read and processed
+ 
+aliases in ~/.bashrc without space around =
+
+$HOME/.bashrc
+
+environment variables; one can type set, env, or export
+
+
+Show the value of a specific variable	echo $SHELL
+
+Export a new variable value	export VARIABLE=value (or VARIABLE=value; export VARIABLE)
+
+Add a variable permanently	
+Edit ~/.bashrc and add the line export VARIABLE=value
+Type source ~/.bashrc or just
+. ~/.bashrc (dot ~/.bashrc); or just start a new shell by typing  bash
+
+PS1 is the primary prompt variable >> echo $PS1
+
+The environment variable $SHELL points to the user's default command shell 
+
+You can start a new shell by just typing bash.
+
+history
+This information is stored in ~/.bash_history.
+
+HISTFILE: The location of the history file. 
+HISTFILESIZE: The maximum number of lines in the history file (default 500). 
+HISTSIZE: The maximum number of commands in the history file. 
+HISTCONTROL: How commands are stored. 
+HISTIGNORE: Which command lines can be unsaved.
+
+set|grep hist
+
+ctrl+r >> find prev. command
+
+!	Start a history substitution
+!$	Refer to the last argument in a line
+!n	Refer to the nth command line
+!string	Refer to the most recent command starting with string
+
+CTRL-L	Clears the screen
+CTRL-D	Exits the current shell
+CTRL-Z	Puts the current process into suspended background
+CTRL-C	Kills the current process
+CTRL-H	Works the same as backspace
+CTRL-A	Goes to the beginning of the line
+CTRL-W	Deletes the word before the cursor
+CTRL-U	Deletes from beginning of line to cursor position
+CTRL-E	Goes to the end of the line
+Tab	Auto-completes files, directories, and binaries
+
+
+chown	Used to change user ownership of a file or directory
+chgrp	Used to change group ownership
+chmod	Used to change the permissions on the file, which can be done separately for owner, group and the rest of the world (often named as other.)
+
+rwx: rwx: rwx
+ u:   g:   o(other)
+
+chmod uo+x,g-w somefile
+
+4 if read permission is desired.
+2 if write permission is desired.
+1 if execute permission is desired.
+Thus, 7 means read/write/execute, 6 means read/write, and 5 means read/execute.
+
+chmod 755 somefile
+
+chown root(user):root(group) file
+chown root(user) file
+
+chgrp root(group) file
+
+
+
+cat file1 file2	Concatenate multiple files and display the output; i.e., the entire content of the first file is followed by that of the second file.
+cat file1 file2 > newfile	Combine multiple files and save the output into a new file.
+cat file >> existingfile	Append a file to the end of an existing file.
+cat > file	Any subsequent lines typed will go into the file, until CTRL-D is typed.
+cat >> file	Any subsequent lines are appended to the file, until CTRL-D is typed.
+
+cat > <filename> << EOF
+Note that EOF is case sensitive. (One can also use another word, such as STOP.)
+
+echo string > newfile	The specified string is placed in a new file.
+echo string >> existingfile	The specified string is appended to the end of an already existing file.
+echo $variable	The contents of the specified environment variable are displayed.
+
+less <filename> > scroll through logs or files
+
+head –n 5 file > 1st 5 lines
+tail -n 15 > last 15 lines
+tail -f > will continuously display new lines
+
+for compressed files z prefixed to their name
+
+$ zcat compressed-file.txt.gz	To view a compressed file
+$ zless <filename>.gz
+or
+$ zmore <filename>.gz	To page through a compressed file
+$ zgrep -i less test-file.txt.gz	To search inside a compressed file
+$ zdiff filename1.txt.gz filename2.txt.gz	To compare two compressed files
+
+
+Command	Usage
+sed -e command <filename>
+
+Specify editing commands at the command line, operate on file and put the output on standard out (e.g., the terminal)
+sed -f scriptfile <filename>	Specify a scriptfile containing sed commands, operate on file and put output on standard out.
+
+sed s/pattern/replace_string/ file	Substitute first string occurrence in a line
+sed s/pattern/replace_string/g file	Substitute all string occurrences in a line
+sed 1,3s/pattern/replace_string/g file	Substitute all string occurrences in a range of lines
+sed -i s/pattern/replace_string/g file	Save changes for string substitution in the same file
+
+sed s/pattern/replace_string/g file1 > file2
+
+sed -e 's/01/JAN/'
+
+awk ‘command’ var=value file	Specify a command directly at the command line
+awk -f scriptfile var=value file	Specify a file that contains the script to be executed along with f
+
+awk '{ print $0 }' /etc/passwd	Print entire file
+awk -F: '{ print $1 }' /etc/passwd	Print first field (column) of every line, separated by a space
+awk -F: '{ print "sth here:"$1" sth there:" $7 }' /etc/passwd	Print first and seventh field of every line
+
+sort
+uniq
+paste
+join
+split
+
+
+sort <filename>	Sort the lines in the specified file, according to the characters at the beginning of each line.
+cat file1 file2 | sort	Combine the two files, then sort the lines and display the output on the terminal
+sort -r <filename>	Sort the lines in reverse order
+sort -k 3 <filename>	Sort the lines by the 3rd field on each line instead of the beginning
+
+uniq is used to remove duplicate lines in a text file and is useful for simplifying the text display.
+
+To count the number of duplicate entries, use the following command: 
+
+uniq -c filename
+
+sort file1 file2 | uniq > file3
+
+paste -d, file1 file2 > -d is to define delimiter -s is in horizontal
+
+join file1 file2
+
+split infile <Prefix>.
+
+split american-english dictionary
+
+grep [pattern] <filename>	Search for a pattern in a file and print all matching lines
+grep -v [pattern] <filename>	Print all lines that do not match the pattern
+grep [0-9] <filename>	Print the lines that contain the numbers 0 through 9
+grep -C 3 [pattern] <filename>	Print context of lines (specified number of lines above and below the pattern) for matching the pattern. Here, the number of lines is specified as 3.
+
+strings book1.xls | grep my_string
+
+grep -n ftp /etc/services | grep -v tcp
+
+The tr utility is used to translate specified characters into other characters or to delete them. The general syntax is as follows:
+
+$ tr [options] set1 [set2]
+
+$ tr abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ	Convert lower case to upper case
+$ tr '{}' '()' < inputfile > outputfile	Translate braces into parenthesis
+$ echo "This is for testing" | tr [:space:] '\t'	Translate white-space to tabs
+$ echo "This   is   for    testing" | tr -s [:space:]
+Squeeze repetition of characters using -s
+$ echo "the geek stuff" | tr -d 't'	Delete specified characters using -d option
+$ echo "my username is 432234" | tr -cd [:digit:]	Complement the sets using -c option
+$ tr -cd [:print:] < file.txt	Remove all non-printable character from a file
+$ tr -s '\n' ' ' < file.txt	Join all the lines in a file into a single line
+
+
+tee takes the output from any command, and, while sending it to standard output, it also saves it to a file. In other words, it "tees" the output stream from the command: one stream is displayed on the standard output and the other is saved to a file.
+
+For example, to list the contents of a directory on the screen and save the output to a file, at the command prompt type ls -l | tee newfile and press the Enter key.
+
+wc (word count) counts the number of lines, words, and characters in a file or list of files.
+
+–l	Displays the number of lines.
+-c	Displays the number of bytes.
+-w	Displays the number of words.
+
+cut >> to display the third column delimited by a blank space, at the command prompt type ls -l | cut -d" " -f3
+
+hostname
+
+/etc/hosts
+/etc/resolv.conf
+host IP
+nslookup IP
+dig link> from nameserver
+nmtui > gui
+nmcli
+/etc/sysconfig/network
+ip
+
+To view the IP address:
+
+$ /sbin/ip addr show
+
+route
+
+Show current routing table	$ route –n or ip route
+Add static route	$ route add -net address or ip route add 
+Delete static route	$ route del -net address or ip route del 
+
+traceroute <address>.
+
+ethtool	Queries network interfaces and can also set various parameters such as the speed.
+netstat	Displays all active connections and routing tables. Useful for monitoring performance and troubleshooting.
+nmap	Scans open ports on a network. Important for security analysis
+tcpdump	Dumps network traffic for analysis.
+iptraf	Monitors network traffic in text mode.
+mtr	Combines functionality of ping and traceroute and gives a continuously updated display.
+dig	Tests DNS workings. A good replacement for host and nslookup.
+
+ethtool iface
+
+netstat -r
+
+lynx	Configurable text-based web browser; the earliest such browser and still in use.
+links or elinks	Based on lynx. It can display tables and frames.
+w3m	Another text-based web browser with many features.
+
+wget is a command line utility that can capably handle downloads
+
+To get the contents of a web page and store it to a file, type curl -o saved.html http://www.mysite.com
+
+ftp://ftp.kernel.org where the usual http:// becomes ftp://.
+
+Some command line FTP clients are:
+
+ftp
+sftp
+ncftp
+yafc (Yet Another FTP Client).
+
+ftp -p server
+
+get file
+
+quit
+
+ssh some_system
+
+ssh -l someone some_system
+
+ssh someone@some_system
+
+ssh some_system my_command
+
+scp <localfile> <user@remotesystem>:/home/user/ >> secure copy
+
+----bash scripting----
+
+
+#!/bin/bash
+find . -name "*.c" -ls
+
+Commonly used interpreters include: /usr/bin/perl, /bin/bash, /bin/csh, /usr/bin/python and /bin/sh.
+/bin/sh
+/bin/bash
+/bin/tcsh
+/bin/csh
+/bin/ksh
+
+$ cat > hello.sh
+  #!/bin/bash
+  echo "Hello Linux Foundation Student"
+./hello.sh or bash hello.sh
+
+read name >> reads input
+echo $name
+
+ (#) is used to start comments
+
+$? > if 0 its success
+
+#	Used to add a comment, except when used as \#, or as #! when starting a script
+\	Used at the end of a line to indicate continuation on to the next line
+;	Used to interpret what follows as a new command to be executed next
+$	Indicates what follows is an environment variable
+>	Redirect output
+>>	Append output
+<	Redirect input
+|	Used to pipe the result into the next command
+
+
+Parameter	Meaning
+$0	Script name
+$1	First parameter
+$2, $3, etc.	Second, third parameter, etc.
+$*	All parameters
+$#	Number of arguments
+
+substitution
+By enclosing the inner command with backticks (`)
+By enclosing the inner command in $( )
+
+Some examples of standard environment variables are HOME, PATH, and HOST
+
+MYCOLOR=blue
+echo $MYCOLOR
+
+export VAR=value
+
+or
+
+VAR=value ; export VAR
+
+ function_name () {
+       command...
+    }
+
+
+if [ condition ]
+then
+       statements
+else or elif
+       statements
+fi
+
+
+$(( x+y ))
+
+read z
+if [ $z -eq sth ]...
+
+if [ -f filename ] > checks if file exists
+
+In modern scripts, you may see doubled brackets as in[[ -f /etc/passwd ]]
+
+
+
+Condition	Meaning
+-e file	Checks if the file exists.
+-d file	Checks if the file is a directory.
+-f file	Checks if the file is a regular file (i.e., not a symbolic link, device node, directory, etc.)
+-s file	Checks if the file is of non-zero size.
+-g file	Checks if the file has sgid set.
+-u file	Checks if the file has suid set.
+-r file	Checks if the file is readable.
+-w file	Checks if the file is writable.
+-x file	Checks if the file is executable.
+man 1 test.
+
+&&	AND	The action will be performed only if both the conditions evaluate to true.
+||	OR	The action will be performed if any one of the conditions evaluate to true.
+!	NOT	The action will be performed only if the condition evaluates to false. 
+
+A && B && C and A is true but B is false, C will never be executed.
+
+A || B || C and A is false and B is true, you will also never execute C.
+
+
+Operator	Meaning
+-eq	Equal to
+-ne	Not equal to
+-gt	Greater than
+-lt	Less than
+-ge	Greater than or equal to
+-le	Less than or equal to
+
+The syntax for comparing numbers is as follows:
+
+exp1 -op exp2
+
+if [ string1 == string2 ] ; then
+   ACTION
+fi
+
+
+expr 8 + 8
+echo $(expr 8 + 8)
+echo $((x+1))
+
+let x=( 1 + 2 ); echo $x
+
+In modern shell scripts, the use of expr is better replaced with var=$((...)).
+
+    answer1=$(($1 + $2))
+    let answer2=($1 + $2)
+    answer3=`expr $1 + $2`
+
+Operator	Meaning
+[[ string1 > string2 ]]	Compares the sorting order of string1 and string2.
+[[ string1 == string2 ]]	Compares the characters in string1 with the characters in string2.
+myLen1=${#string1}	Saves the length of string1 in the variable myLen1.
+
+To extract the first n characters of a string we can specify: ${string:0:n}. Here, 0 is the offset in the string (i.e., which character to begin from) where the extraction needs to start and n is the number of characters to be extracted.
+To extract all characters in a string after a dot (.), use the following expression: ${string#*.}
+
+
+echo "Is string 1 zero length? Value of 1 means FALSE"
+[ -z "$str1" ]
+echo $?
+# note if $str1 is empty, the test [ -z $str1 ] would fail
+#                              but [[ -z $str1 ]] succeeds
+#         i.e., with [[ ]] it works even without the quotes
+
+[[ $# -lt 2 ]] > checks if arg count is less than 2
+
+
+case expression in
+   pattern1) execute commands;;
+   pattern2) execute commands;;
+   pattern3) execute commands;;
+   pattern4) execute commands;;
+   * )       execute some default commands or nothing ;;
+esac
+
+
+
+Three type of loops are often used in most programming languages:
+
+for
+while
+until
+
+
+for variable-name in list
+do
+    execute one iteration for each item in the list until the list is finished
+done
+
+
+while condition is true
+do
+    Commands for execution
+    ----
+done
+
+
+until condition is false
+do
+    Commands for execution
+    ----
+done
+
+
+
+You can run a bash script in debug mode either by doing bash –x ./script_file,  or bracketing parts of the script with set -x and set +x. The debug mode helps identify the error because:
+
+It traces and prefixes each command with the + character.
+It displays each command before executing it.
+It can debug only selected parts of a script (if desired) with:
+
+set -x    # turns on debugging
+...
+set +x    # turns off debugging
+
+
+File stream
+Description	File Descriptor
+stdin	Standard Input, by default the keyboard/terminal for programs run from the command line	0
+stdout	Standard output, by default the screen for programs run from the command line	1
+stderr	Standard error, where output error messages are shown or saved	2
+
+
+The XXXXXXXX is replaced by the mktemp utility with random characters to ensure the name of the temporary file cannot be easily predicted and is only known within your program.
+
+Command	Usage
+TEMP=$(mktemp /tmp/tempfile.XXXXXXXX)	To create a temporary file
+TEMPDIR=$(mktemp -d /tmp/tempdir.XXXXXXXX)	
+To create a temporary directory
+
+we can redirect the large output to a special file (a device node) called /dev/null. This pseudofile is also called the bit bucket or black hole.
+
+
+random numbers can be generated by using the $RANDOM 
+
+ when the entropy pool is empty, /dev/random is blocked and does not generate any number until additional environmental noise (network traffic, mouse movement, etc.) is gathered, whereas /dev/urandom reuses the internal pool to produce more pseudo-random bits.
+
+The Linux standard for printing software is the Common UNIX Printing System (CUPS).
+You can use your browser to access the CUPS web interface at http://localhost:631/ to monitor the status of the printing job. 
+
+Command	Usage
+lpstat -p -d	To get a list of available printers, along with their status
+lpstat -a	To check the status of all connected printers, including job numbers
+cancel job-id
+OR
+lprm job-id	To cancel a print job
+lpmove job-id newprinter	To move a print job to new printer
+lp <filename>	To print the file to default printer
+lp -d printer <filename>	To print to a specific printer (useful if multiple printers are available)
+program | lp
+echo string | lp	To print the output of a program
+lp -n number <filename>	To print multiple copies
+lpoptions -d printer	To set the default printer
+lpq -a	To show the queue status
+lpadmin	To configure printer queues
+
+
+enscript is a tool that is used to convert a text file to PostScript and other formats.
+
+enscript -p psfile.ps textfile.txt	Convert a text file to PostScript (saved to psfile.ps)
+enscript -n -p psfile.ps textfile.txt	Convert a text file to n columns where n=1-9 (saved in psfile.ps)
+enscript textfile.txt	Print a text file directly to the default printer
+This command will also rotate (-r)
+
+
+ImageMagick package.
+
+Some usage examples:
+
+Command	Usage
+pdf2ps file.pdf	Converts file.pdf to file.ps
+ps2pdf file.ps	Converts file.ps to file.pdf
+pstopdf input.ps output.pdf	Converts input.ps to output.pdf
+pdftops input.pdf output.ps	Converts input.pdf to output.ps
+convert input.ps output.pdf	Converts input.ps to output.pdf
+convert input.pdf output.ps	Converts input.pdf to output.ps
+
+
+pdftk, to perform a very large variety of sophisticated tasks. Some of these operations include:
+
+Merging/Splitting/Rotating PDF documents
+Repairing corrupted PDF pages
+Pulling single pages from a file
+Encrypting and decrypting PDF files
+Adding, updating, and exporting a PDF’s metadata
+Exporting bookmarks to a text file
+Filling out PDF forms.
+
+pdftk 1.pdf 2.pdf cat output 12.pdf	Merge the two documents 1.pdf and 2.pdf. The output will be saved to 12.pdf.
+pdftk A=1.pdf cat A1-2 output new.pdf	Write only pages 1 and 2 of 1.pdf. The output will be saved to new.pdf.
+pdftk A=1.pdf cat A1-endright output new.pdf	Rotate all pages of 1.pdf 90 degrees clockwise and save result in new.pdf.
+
+
+pdftk public.pdf output private.pdf user_pw PROMPT > encrypts pdf
+
+
+Ghostscript
+
+Combine three PDF files into one:
+$ gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite  -sOutputFile=all.pdf file1.pdf file2.pdf file3.pdf
+
+Split pages 10 to 20 out of a PDF file:
+$ gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dDOPDFMARKS=false -dFirstPage=10 -dLastPage=20\
+-sOutputFile=split.pdf file.pdf
+
+Linux has four types of accounts:
+
+root
+System
+Normal
+Network.
+
+The last utility, which shows the last time each user logged into the system
+
+User password (or the character x if the password is stored in the /etc/shadow file) in encrypted format
+
+sudo is based on configuration information stored in the /etc/sudoers file and in the /etc/sudoers.d directory.
+
+
+A message would appear in a system log file (usually /var/log/secure) when trying to execute sudo bash without successfully authenticating the user
+
+sudo commands and any failures are logged in /var/log/auth.log
+Debian distribution family, and in /var/log/messages and/or /var/log/secure on other systems
+
+sudo whoami
+
+Control Groups (cgroups): Allows system administrators to group processes and associate finite resources to each cgroup.
+
+Linux Containers (LXC): Makes it possible to run multiple isolated Linux systems (containers) on a single system by relying on cgroups.
+
+Virtualization: Hardware is emulated in such a way that not only processes can be isolated, but entire systems are run simultaneously as isolated and insulated guests (virtual machines) on one physical host.
+
+sudo useradd newuser
+sudo passwd newuser  
+sudo userdel newuser 
+
+You can login by doing:
+sudo su newuser
+or
+ssh newuser@localhost
+
+using the program sha512sum to produce the SHA-512 form
+
+chage >, which configures the password expiry information for a user.
+
+PAM can be configured to automatically verify that a password created or modified using the passwd utility is sufficiently strong. PAM configuration is implemented using a library called pam_cracklib.so, which can also be replaced by pam_passwdqc.so for more options.
+
+The guidelines of security are:
+
+Lock down workstations and servers.
+Protect your network links such that it cannot be accessed by people you do not trust.
+Protect your keyboards where passwords are entered to ensure the keyboards cannot be tampered with.
+Ensure a password protects the BIOS in such a way that the system cannot be booted with a live or rescue DVD or USB key.
+
+ For systems using the older GRUB boot loader, version 1, you can invoke grub-md5-crypt  which will prompt you for a password and then encrypt.
+
+
+ 
+df -T -h > disk sizes
+ 
+
+-----------nginx---------
+
+yum -y install nginx
+systemctl start nginx
+systemctl enable nginx > restart service at every bootup
+systemctl status nginx
+
+/etc/nginx/nginx.conf>main configuration file(not edit really)
+/etc/nginx/conf.d/>file contains general configration files(better to edit)
+nginx -t > test
+
+
+
+------raspberry---------
+
+The default for all versions of Raspbian:
+user: pi
+password: raspberry
+sudo raspi-config
+wol b8:27:eb:8d:74:a6
+
+
+
+ether-wake -i eth0 b8:27:eb:8d:74:a6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------basic and advanced file editors------
+
+nano filename
+gedit filename
+
+vim filename
+vimtutor 
+Type i to switch to Insert mode from Command mode.
+Type : to switch to the Line mode from Command mode.
+vi myfile	Start the vi editor and edit the myfile file
+vi -r myfile	Start vi and edit myfile in recovery mode from a system crash
+:r file2	Read in file2 and insert at current position
+:w	Write to the file
+:w myfile	Write out the file to myfile
+:w! file2	Overwrite file2
+:x or :wq	Exit vi and write out modified file
+:q	Quit vi
+:q!	Quit vi even though modifications have not been saved
+arrow keys	To move up, down, left and right
+j or <ret>	To move one line down
+k	To move one line up
+h or Backspace	To move one character left
+l or Space	To move one character right
+0	To move to beginning of line
+$	To move to end of line
+w	To move to beginning of next word
+:0 or 1G	To move to beginning of file
+:n or nG	To move to line n
+:$ or G	To move to last line in file
+CTRL-F or Page Down	To move forward one page
+CTRL-B or Page Up	To move backward one page
+^l	To refresh and center screen
+
+/pattern	Search forward for pattern
+?pattern	Search backward for pattern
+
+n	Move to next occurrence of search pattern
+N	Move to previous occurrence of search pattern
+
+---vi commands
+
+a	Append text after cursor; stop upon Escape key
+A	Append text at end of current line; stop upon Escape key
+i	Insert text before cursor; stop upon Escape key
+I	Insert text at beginning of current line; stop upon Escape key
+o	Start a new line below current line, insert text there; stop upon Escape key
+O	Start a new line above current line, insert text there; stop upon Escape key
+r	Replace character at current position
+R	Replace text starting with current position; stop upon Escape key
+x	Delete character at current position
+Nx	Delete N characters, starting at current position
+dw	Delete the word at the current position
+D	Delete the rest of the current line
+dd	Delete the current line
+Ndd or dNd	Delete N lines
+u	Undo the previous operation
+yy	Yank (copy) the current line and put it in buffer
+Nyy or yNy	Yank (copy) N lines and put it in buffer
+p	Paste at the current position the yanked line or lines from the buffer.
+
+Typing  : sh command  opens an external command shell. When you exit the shell, you will resume your vi editing session.
+
+Typing :!executes a command from within vi. The command follows the exclamation point. This technique is best suited for non-interactive commands, such as : ! wc %. Typing this will run the wc  (word count) command on the file; the character % represents the file currently being edited.
+
+emacs filename
+emacs myfile	Start emacs and edit myfile
+CTRL-x i	Insert prompted for file at current position
+CTRL-x s	Save all files
+CTRL-x CTRL-w
+Write to the file giving a new name when prompted
+CTRL-x CTRL-s	Saves the current file 
+CTRL-x CTRL-c	Exit after being prompted to save any modified files
+
+Key	Usage
+arrow keys	Use the arrow keys for up, down, left and right
+CTRL-n	One line down
+CTRL-p	One line up
+CTRL-f	One character forward/right
+CTRL-b	One character back/left
+CTRL-a	Move to beginning of line
+CTRL-e	Move to end of line
+Meta-f	Move to beginning of next word
+Meta-b	Move back to beginning of preceding word
+Meta-<	Move to beginning of file
+Meta-g-g-n	Move to line n (can also use 'Esc-x Goto-line n')
+Meta->	Move to end of file
+CTRL-v or Page Down	Move forward one page
+Meta-v or Page Up	Move backward one page
+CTRL-l	Refresh and center screen
+CTRL-s	Search forward for prompted pattern, or for next pattern
+CTRL-r	Search backwards for prompted pattern, or for next pattern
+CTRL-o	Insert a blank line
+CTRL-d	Delete character at current position
+CTRL-k	Delete the rest of the current line
+CTRL-_	Undo the previous operation
+CTRL- (space or CTRL-@)	Mark the beginning of the selected region. The end will be at the cursor position
+CTRL-w	Delete the current marked text and write it to the buffer
+CTRL-y	Insert at current cursor location whatever was most recently deleted
+
+
+
+------important files------
+
+Blue: Directory
+Green: Executable or recognized data file
+Sky Blue: Symbolic link file
+Yellow with black background: Device
+Pink: Graphic image file
+Red: Archive file
+Red with black background: Broken link
+
+/bin directory contains executable binaries, essential commands used to boot the system or in single-user mode, and essential commands required by all system users
+ 
+/sbin directory is intended for essential binaries related to system administration, such as fsck and shutdown
+
+/proc/cpuinfo
+/proc/interrupts
+/proc/meminfo
+/proc/mounts
+/proc/partitions
+/proc/version
+
+/proc has subdirectories as well, including:
+
+/proc/<Process-ID-#>
+/proc/sys
+
+/dev directory contains device nodes,
+
+/dev/sda1 (first partition on the first hard disk)
+
+System log files: /var/log
+Packages and database files: /var/lib
+Print queues: /var/spool
+Temp files: /var/tmp
+
+/etc/sysconfig
+
+/etc/resolv.conf
+
+/boot directory contains the few essential files needed to boot the system. For every alternative kernel installed on the system there are four files:
+
+vmlinuz: the compressed Linux kernel, required for booting
+initramfs: the initial ram filesystem, required for booting, sometimes called initrd, not initramfs
+config: the kernel configuration file, only used for debugging and bookkeeping
+System.map: kernel symbol table, only used for debugging
+
+/lib/modules/<kernel-version-number>
+
+Removable media: the /media, /run and /mnt
+
+
+------compression---------
+gzip * > does not replaces orj
+gzip -r projectX
+gunzip foo
+
+bzip2 * > replaces orj
+bunzip2 *.bz2 
+
+xz * > replaces orj
+xz foo
+xz -dk bar.xz > decompress
+xz -d *.xz
+
+zip backup *
+zip -r backup.zip ~> archive user home
+unzip backup.zip
+
+tar xvf mydir.tar > decompress mydir.tar does not replace files and similar line for .tar.gz also
+tar zcvf mydir.tar.gz mydir > compress with gzip
+tar jcvf mydir.tar.bz2 mydir > compress with bz2
+tar Jcvf mydir.tar.xz mydir > compress with xz
+
+
+--------network------------
+sudo ufw status > firewall status
+ifconfig
+
+student (passwd=student)
+root (passwd=LFtrain)
+
+--------LFS 201----------
+
+________Filesystem Tree_______
+
+inside /boot;
+vmlinuz >>compressed Linux kernel, essential
+initramfs or initrd >> initial RAM filesystem, mounted before OS, essential
+config >> kernel configuration
+system.map>>kernel symbol table
+
+inside /dev;
+devices
+pseudo-filesystem
+
+inside /etc;
+/etc/sysconfig
+/etc/skel > used to populate new home dirs
+/etc/init.d >startup,shutdown, system V
+configuration files
+
+inside /home;
+personal files
+
+inside /bin /sbin;
+needed to execute binaries in /bin /sbin
+/lib/modules/<kernel version> >> kernel modules
+/lib/security >> PAM (Pluggable Authentication Modules)
+
+inside /mnt;
+used to mount temporarily;
+NFS,samba,CIFS,AFS
+could be under /media or /run/media
+
+inside /lib;
+Linux kernel modules >> extension for kernel
+
+
+inside /opt;
+software packges
+
+inside /proc;
+pseudo-filesystem > will be empty on  not running system
+
+inside /sys;
+pseudo-filesystem for mounts
+
+inside /sbin;
+essentials for restore, recovery and repair.
+
+inside /usr;
+not big files or essential	 binaries
+symbolic links
+man pages at /usr/share/man
+can be mounted on network and shared
+read only
+
+inside /var;
+spool directories
+log files
+volatile files
+cannot be mounted as read only
+
+inside /run;
+transient files
+pseudo-filesystem exists only in memory
+
+example;
+du -shxc --exclude=proc *
+shows total filesystem size
+
+info;
+• /proc/cpuinfo:
+• /proc/meminfo:
+• /proc/mounts:
+• /proc/swaps:
+• /proc/version:
+• /proc/partitions:
+• /proc/interrupts:
+
+_______Processes________
+
+init is 1st proc and ID=1
+
+pid
+ppid > parent process ID-#
+pgid > process group id
+if parent process dies before child, child process id goes to 1 as init becomes parent (kthreadd > internal kernel thread)
+
+if child terminates before parent and exit > zombie /defunct process
+largest PID 2^(16bit-1)=32768
+it can be changed from /proc/sys/kernel/pid_max
+
+kernel performs context switching(state)
+
+ulimit >> displays or resets resource limits for proc.
+hard limit > max value, only root
+soft limit > canbe modified by usr but cant exceed hard limit.
+ulimit -n 1600> increase max number of file descriptors only in current shell
+/etc/security/limits.conf > to change limits for all logged usr
+
+setuid programs > executive bit 's' runs as who owns the program not as runner usr
+
+states= running/sleeping/stopped/zombie
+
+user mode =ring 3 intel
+system/kernel mode = ring 0 intel
+modes comm with system call to context switch from user to kernel mode
+
+user mode > processes can not interact with other processes except for shared memory segments
+kernel mode > hw
+
+daemons ex;
+httpd
+systemd-udevd
+/etc/init.d starts daemons as invokes args to shell named daemon in /etc/init.d/functions.
+
+internal kernel processes > maintenance processes
+external user procecsses >> runs in user space but kernel started
+
+ps -elf > lists all processes
+if PPID=2 > kthreadd
+
+forking > creating new process
+
+priority > nice or renice commands
+
+niceness can be decreased by users at;
+/etc/security/limits.conf
+
+ni value is -19 to 20
+
+libraries;
+static > code is in compile time
+shared > code is at run time >> DLL(dynamic link library) > extension .so
+
+ldd can be used ascertain what libraries executable requires
+
+ipsc > get system V IPC activty at system
+
+
+
+_______Signals________
+
+kill, killall, pkill
+
+SIGKILL and SIGSTOP cannot be handled
+man 7 signal
+kill -l
+
+ex;
+kill -SIGKILL 1991
+-SIGKILL or -9 is same
+
+pkill > sends signal to a process using selection
+default kill will send SIGTERM
+
+_______Package Man. Sys.________
+
+RPM > redhat
+APT > Debian > dpkg
+
+binary packages > files ready to deploy
+
+source packages > used to generate binary packages as "rpmbuild --rebuild" on RPM based systems
+
+architecture-independent packages > contains files and scripts that run under scripts with documentation and conf. files.
+
+Meta-packages > essential groups of associated packages as to install large subsystem or desktop env.
+
+two levels as;
+Low level utillity > dependency problems while installing groups of packages or removing them
+High level utility > 
+
+standard naming for binary packages;
+name-version-release.distro.architecture.rpm
+
+standard naming for source package;
+name-version-release.distro.src.rpm
+
+/var/lib/rpm > hold rpm database in berkeley db hash
+
+--dbpath to add new db path
+--rebuilddb to rebuild package header/repair
+
+rpm looks for;
+/usr/lib/rpm/rpmrc
+/etc/rpmrc
+~/.rpmrc
+
+rpm -qa > lists all packages installed in system
+rpm -ql > lists files inside this packages which installed
+rpm -q bash > version of package
+rpm -qf /bin/bash > package which this file came
+rpm -qi bash > information
+rpm -qp --requires foo-asdasd-.1.1 >> package dependencies
+rpm -Va > verifies consistency of all packages
+rpm -ivh package-name > install package
+rpm -e package-name > uninstall package can add --test, -vv for more info
+rpm -Uvm package-name > updates package and keeps conf files with .rpmsave extension
+rpm -Fvh *.rpm > freshen all files with .rpm
+
+ex;
+ls -lF $(rpm -ql bzip2)|less
+
+rpm -ivm kernel-version.acr.rpm> install new kernel you shouldnt do update -u because it will remove prev. one so you can install 2 and remove old one when confirmed
+
+rpm2cpio > it extract .rpm
+
+yum clean all >> remove sw cache
+repository conf.> /etc/yum.repos.d/*.repo
+yum search keyword
+yum list "*keyword*"
+yum info [package]
+yum list [installed|updates|available]
+yum grouplist group1 group2
+yum provides "file name"> find package from file as from .conf files
+
+yum install yum-plugin-verify> verification package
+
+yum verify [package]
+yum localinstall [package]>solves dependencies unlike bellow
+rpm -i package>doesnt solve anythng
+
+yum groupinstall group-name
+yum update package
+yum remove pckage1 package2
+
+old conf files are going to have .rpmsave ext. new ones .rpmnew
+find /etc -name "*.rpm**"
+
+yum repolist
+yum shell {text file}
+yum list "yum-plugin" 
+yum install --downloadonly package > download to /var/cache/yum unless "--downloaddir=" dont exits
+yum history
+dnf should be new yum
+yum list installed "kernel*">installed packages
+yum deplist bash > dependency list for bash
+
+yum grouplist
+yum groupinfo "Backup Client"
+yum groupinstall "Backup Client"
+yum groupremove "Backup Client"
+
+
+yumex >> gui with yum
+
+_______Monitoring________
+
+Process and load;
+top > process activity
+uptime > how long system is running and avg load
+ps > details about processes
+pstree > tree of processes and connections
+mpstat > multiple processor usage
+sar > information about system activity
+iostat > CPU utulization and IO stats
+numastat >inf non uniform memory architecture
+strace > system calls a process makes
+
+Memory;
+free > memory usage
+vmstat > detailed vm and block IO
+pmap > process memory map
+
+I/O;
+iostat > CPU utulization and IO stats 
+sar > information about system activity
+vmstat > detailed vm and block IO
+
+Network;
+netstat
+iptraf > interfaces
+tcpdump > packets
+wireshark
+
+/proc/sys/ > most of tunable parameters 
+
+sysctl kernel.threads-max=10000 >> can also change from /proc/sys/kernel/threads-max
+
+/sys/class/net > network devices
+
+sar opt interval count > system activity reporter uses sadc(''data collectror) data in >/var/log/sa
+
+in regular periodic data collection done by cron jobs in /etc/cron.d/sysstat
+
+Ex;
+$ tar zxvf stress-1.0.4.tar.gz
+$ cd stress-1.0.4
+$ ./configure
+$ make
+$ sudo make install
+
+ps;
+UNIX options with -
+BSD opts. without -
+GNU opts. with --
+VSZ > virtual memory size in KB
+RSS > resident set size, not swapped memory in KB
+STAT > status as sleep or running
+	< for high prio
+	N for low prio
+	L for having pages locked in memory
+	s for session leader
+	l for multi thread
+	+ for foreground proc. group
+
+
+f opt will show connections
+-A or -e for all proc.
+-N negate selection
+-C select by command name
+-G select by group ID
+-U select by real user ID
+-o to print only listed parameters
+
+
+can edit /proc/sys/vm by sysctl or /etc/sysctl.conf to run also at boot time
+
+vmstat opts delay count
+r > number of processes waiting to be scheduled
+b > number of processes in unterruptable sleep
+swpd > virtual memory used KB
+free > free mem. KB
+buff > buffer mem. KB
+cache > cached mem. KB
+si > memory swapped in KB
+so > Memory swapped out KB
+bi  > blocks written to dev. (blocks /sec)
+bo > blocks read from dev. (blocks/sec)
+in > interrupts/sec
+cs > context switches/sec
+us > CPU time running user code (percentage)
+sy > CPU time running kernel code (percentage)
+id > idle time %
+st > time stolen from v. machine %
+
+-a >gives active and inactice
+-s > statistics
+-d > disk use
+-p /dev/sda 2 4 > just one partition
+also stats at /proc/meminfo
+
+/proc/sys/vm/overcommit_memory > permission to overcommission of RAM + swap
+0 permit but refuce obvious ones, give root more malloc
+1 permit all
+2 off unless ..overcommit_ratio not exceeded
+
+Out Of Memory;
+oom killer
+based on badness level > /proc/pid/oom_score
+oom_adj_score is direct score adj point
+
+gnome-system-monitor
+
+dmesg > kernel messages
+
+/sbin/swapoff -a > off the swap
+/sbin/swapon -a > on the swap
+
+io-bound > CPU is waiting for IO to completes or network is waiting to clear buffers
+
+iostat;
+tps > IO trxs per sec.
+-m to get in Mbytes
+-k to get in Kbytes
+default is in blocks (512 bytes of sectos)
+-N to show by dev name
+-x > details
+
+rrqm/s > read request merged per sec
+-sz > size in block
+await > avg wait queue + service time
+%util > CPU time
+
+iotop > processes and IO details
+-o > processes currently doing IO 
+
+ionice > lets you set prio and scheduling class of proc.
+ionice -c class -n prio -p pid command args
+
+-c value;
+0 default
+1 real time
+2 best effort
+3 idle
+
+Io schedulers;
+CFQ
+Deadline
+noop
+
+ionice only works if CFQ IO scheduler is working
+
+to identify ssd > /sys/block/{device}/queue/rotational if its 1 its HDD if its 0 its SSD
+
+can be different scheduler for different device > /sys/block/{device}/queue/scheduler
+
+tunables > /sys/block/{device}/queue/iosched
+
+Completely Fair Queue > FIFO, round robin style
+
+CFQ tunables:
+HZ > number of jiffies per second, kernel use it to measure time
+
+quantum > min queue length in one round default=4
+queued > min request allocation per queue default=8
+fifo_expire_sync > fifo timeout sync req. default=HZ/2
+fifo_expire_async> fifo timeout sync req. default=5*HZ
+fifo_batch_expire>rete at which fifo expire default =hz/8
+back_seek_max > max bacwards seek default=16K
+back_seek_penalty>penalty for backwards seek default=2
+
+Deadline > agressively reorder requests with goals of improving perf. and preventing latencies, limit starvation
+
+
+read prio > write prio
+5 lists in total
+2 lists one for read one for write arranged by starting block
+2 lists one for read one for write sorted by submission time
+1 list for device driver req.s called dispatch queue
+
+important thing is how reqs peeled from 1st 4 lists and put to 5th
+
+Deadline tunables:
+read_expire>how long read req guaranteed to occur default=hz/2
+write_expire>how long a write req. guaranteed to occur
+writes_starved >how amny reqs we should pref to reads over writes default=2
+fifo_batch>how many reaqs should be moved from the sorted scheduler list to dispatch queue when deadlines expired default =16
+front_merges>back merges are more common then front merges setting it to 0 disables front merges and give boost if they are not needed. default =1
+
+
+SSDs not require elevator queuing scheme
+
+
+_______Linux Filesystem and VFS_____
+
+only some level OS writes raw data on disk (its dangerous)
+
+Logical Volume Manager(LVM) > local filesystems, physical partition, logical partition
+
+pseudo fs;
+/proc
+/sys
+/dev
+/tmp
+/run
+
+When application need to access to file interacts with VFS (Virtual File System) abstraction later and then translates I/O system calls into specific code relevant to perticular fs
+
+Variants such as vfat(fat32,fat windows vfat) dont have distinct rwe permissings and VFS is doing assumptions.
+Non-kernel fs such as ntfs-3g are reliable but with lower perf in-kernel fs.
+
+ext4 > native linux fs
+all > /proc/filesystems
+xfs not in list!
+
+ex(create fs-not really worked on CentOs7);
+dd if=/dev/zero of=junk bs=1M count=5
+sudo /sbin/mkfs.xfs junk
+sudo mount junk /mnt
+
+Journalling filesystems;
+-transactional
+-if fails fs doesnt get created
+-ext3,ext4,reiserfs,jfs,xfs(rhel7 default),btrfs
+
+ex;
+Mount a new instance of tmpfs anywhere on your directory structure with a command like:
+$ sudo mkdir /mnt/tmpfs
+$ sudo mount -t tmpfs none /mnt/tmpfs
+See how much space the filesystem has been given and how much it is using:
+$ df -h /mnt/tmpfs
+You should see it has been allotted a default value of half of your RAM; however, the usage is zero, and will only start to grow as you place
+files on /mnt/tmpfs.
+You could change the allotted size as a mount option as in:
+$ sudo mount -t tmpfs -o size=1G none /mnt/tmpfs
+You might try filling it up until you reach full capacity and see what happens. Do not forget to unmount when you are done with:
+$ sudo umount /mnt/tmpfs
+Virtually all modern Linux distributions mount an instance of tmpfs at /dev/shm:
+$ df -h /dev/shm
+$ df -h | grep tmpfs
+
+_______Disk partitioning_______
+
+Serial Advanced Technology Attachment(SATA)
+recognized as SCSI even its not really
+3,6,16 GB/s
+less pins (7) than PATA, native hot swapping
+
+Small Computer Systems Interface(SCSI)
+better in RAID
+Fast,wide,ultra,ultrawide based on bus bw 8-16 bit
+to ~160MBs
+single ended controllers 7 device to 6 meters
+differential controllers 15 device to 12 meters
+
+SAS
+replacement for parallel SCSI > bettter perf
+
+USB
+SSD
+IDE and EIDE(Integrated Device Electronics and Enchanced IDE)
+
+fdisk -l /dev/sda
+
+sectors > 512 bytes in size maybe 4KB as new tech.
+cylinder is a group of platters
+
+A disk may have up to four primary partitions. One of the primary partitions can be designated as an extended partition, which can be subdivided further into logical partitions.
+
+Master boot record (MBR);
+512B
+partition table is 64 bytes after 446 byte boot(bootloader, GRUB etc.) record and in the end magic 2 bytes as marker 0x55AA
+
+partition tables;
+active bit
+beginning adres in cylinder/head/sectors(CHS) ignored by Linux
+partition type code: xfs, LVM, ntfs ext4, swap etc.
+ending adress in CHS (ignored by Linux)
+start sectors, 0
+number of sectors in partition
+
+Linux use linear block adressing (LBA) 
+
+1st disk /dev/sda
+2nd disk /dev/sdb
+
+1st partition on 1st disk /dev/sda1
+2nd partition on 3rd disk /dev/sdc2
+
+if 2 controllers
+ID 1 and 3 on controller 0 
+ID 2 and 5 on controller 1 (2 as last drive)
+
+blkid > gives block device attributes UUIDs
+lsblock > block information in tree
+
+Linux has minimum 2 partitions
+/root:
+entire system mounted from mounting points
+swap:
+2x of memory but should be based on system use and hw capabilities
+single hdd try to have swap at the middle of disk
+multiple hdd try to spread swap
+
+MBR backup:
+sudo dd if=/dev/sda of=mbrbackup bs=512 count=1
+MBR restore:
+sudo dd if=mbrbackup of=/dev/sda bs=512 count=1
+
+fdisk > used at most
+sfdisk
+parted
+gparted > gui , not in RHEL
+
+sudo partprobe -s > use new partition without reboot
+cat /proc/partitions > to see if its recognized
+/etc/fstab > should be added with new partition
+
+ex;
+dd if=/dev/zero of=imagefile bs=1M count=1024
+mkfs.ext4 imagefile
+mkdir mntpoint
+sudo mount -o loop imagefile mntpoint
+divide it to containers with;
+sudo fdisk -C 130 imagefile
+n
+umount mntpoint
+
+
+Inode is data structure on disk that describe and stores attribs.
+permissions,user and group ownership, size and timestamps
+file name is not stored in inode
+
+Directory file is associate filenames and inodes
+
+extended attributes associate metadata
+4 namespaces as;
+user
+trusted
+security
+system
+
+lsattr filename
+chattr [=|-|=mode] filename
+
+i:immutable
+a:append-only
+d:no-dump
+A:no access time update
+
+bellow two is same;
+mkfs -t ext4 /dev/sda10
+mkfs.ext4 /dev/sda10
+
+mkfs [-t fstype] [opts] [device-file]
+
+/sbin/fsck>utilities to check (same syntax as mkfs)
+-r opt to check errors manually
+-a to check automatically
+
+bellow forces all fs to check;
+touch /forcefsck
+reboot
+
+fuser > to find which users are using fs
+lsof > list of open files
+
+
+mount -t nfs myserver.com:/sharedir /mnt/sharedir
+or
+add in /etc/fstab
+myserver.com:/sharedir /mnt/sharedir nfs rsize=8192,wsize=8192,timeo=14,intr 0 0
+
+last 2 ints at /etc/fstab
+dump ( dump frequency)
+fsck (check on reboot)
+
+mount LABEL=src /usr/src > can use inf.
+
+autofs > automount package
+adding conf inside /etc/fstab
+
+
+dumpe2fs > details about fs
+
+umount before fsck
+
+fsck -f [file]
+
+summary;
+mkfs > general tool to format fs
+fsck > tool to check fs
+lsattr > tool to list attribs
+chattr > tool to change extended attributes
+lsof > tool to list open files
+
+ex;
+LABEL=Sam128 /SAM ext4 noauto,x-systemd.automount,x-systemd.device-timeout=10,x-systemd.idle-timeout=30 0 0
+systemctl daemon-reload
+systemctl restart local-fs.target
+
+ex 2;
+losetup -f create new loop device
+losetup /dev/loop0 image > mount image on loop device
+parted -s /dev/loop0 mklabel msdos > label creation is necessary for parted
+parted -s /dev/loop0 unit MB mkpart primary ext4 0 256 > creation of partition
+fdisk -l /dev/loop0 > check created loop device
+mkfs.ext3 /dev/loop0p1 > create filesystem on loop device before mount !
+mount /dev/loop0p1 /mnt/mntpoint > mounted and ready
+umount /mnt/mntpoint
+losetup -d /dev/loop0 > detach loop device
+
+mount -o ro > mount read only
+
+Mount on reboot;
+Put this line in /etc/fstab:
+/dev/sda11 /mnt/tempdir ext4 defaults 1 2
+becarefull if its loop use;
+/imagefile /mnt/tempdir ext4 loop 1 2
+
+mkfs -t ext4 -b 2048 -v /dev/sda6 >create filesystem on partition
+partprobe -s> to renew after new partition without reboot
+
+mount -o loop> use it to mount loop devices
+
+
+______Swap, Quotas Usage_____
+
+
+/proc/swaps > swap areas getting used
+free -m > basic memory statistics
+
+mkswap > format a swap partition or file
+swapon > activate swap partition file
+swapoff > deactivate swap partition or file
+
+Linux kernel memory never swapped out
+
+quotacheck: generates and updates quota accounting files
+quotaon: enables quota accounting
+quotaoff: disables "
+edquota: used for editing user or group quotas
+quota: reports on usage and limits
+
+quota usage requires > aquota.user and aquota.group in root dir. Run quotacheck filename. Add usrquota and grpquota opts to fs in /etc/fstab. Remount fs.
+/etc/fstab > /dev/sda /home ext4 defaults,usrquota 1 1
+
+quota username > possible to get reports by user
+
+edquota -p > copies quota settings between users
+
+edquota -t > edit grace periods, during that time softlimits can be exceeded after it soft limits will be hard limits. Hard limits can not be exceeded.
+
+df -Th > disk free
+du -ch > disk usage
+
+after editing /etc/fstab always remount partitions to take effect
+
+ex# how to make swap from current fs;
+dd if=/dev/zero of=swapfile
+mkswap swapfile
+swapon swapfile
+Make sure its owner is root and rw enabled
+chown root:root swapfile
+chmod 600 swapfile
+
+block size (bigger)> page memory
+
+inode reservation > reserve several inodes when directory created to improve perf.
+
+if pathname of sybolic link is <60 chars its stored inside inode called fast symbolic link
+
+fields written to disk are little-endian order except journal
+
+
+Disk blocks are partitioned to block groups(inode and data blocks) ordered as;
+(0th block)0-1024 bytes is empty to allow boot sectors
+1st block is superblock
+Group Descriptor Table 
+data block bitmap
+inode bitmap
+inode table
+data block
+
+
+fs superblock states;
+clean>unmounted
+dirty>mounted
+unknown>crashed etc.
+which includes;
+mount count > since last fsck
+block size
+blocks per group
+free block count
+free inode count
+operating system ID
+
+1st block at fs > boot lock
+
+dumpe2fs > fs info
+tune2fs > change parameters
+blkid > shows UUID
+
+tune2fs -i 180 /dev/sda > change timeinterval check for partition
+
+1 bitmap for 1 block group
+
+each inode req 128 bytes > 4KB block 32 inode
+
+ext 4;
+max fs size 1EB
+max file size 16 TB
+unlimited subdirs
+multiblock allocation
+pro-allocate disk for perform
+allocate on flush
+checksum
+fsck
+
+e4defrag > defragmentation tool
+
+XFS;
+Direct Memory Access (I/O)
+adjust stripe size for RAID and LVM
+also journal quota
+journal can be on external dev.
+xfsdump
+xfsrestore
+no snapshots instead xfs-freeze
+
+btrfs;
+snapshots
+Copy On Write
+maintains frameworks for mounts as LVMs
+
+man -k xfs
+man -k btrfs
+
+____Disk encryption____
+cryptsetup > power utility
+
+LUKS >block device encryption > Linux Unified Key Setup
+
+dm-crypt > LVM
+
+cryptsetup [option] [action] [acton specific]
+
+1 - you need to give partition or loopback device to LUKS
+cryptsetup luksFormat --cipher AES /dev/sda6
+
+2-
+crypsetup (--verbose) luksOpen /dev/sda6 nameUwant
+
+3-
+it will now encrypted device at /dev/mapper/nameUwant
+then;
+mkfs.ext4 /dev/mapper/nameUwant
+and mount it
+
+end-
+after simply unmount and do bellow
+cryptsetup (--verbose) luksClose nameUwant
+
+to mount at boot edit;
+/etc/fstab
+/etc/crypttab > password /dev/mapper/nameUwant > might not be correct check next (swap)
+
+
+man crypttab
+
+to make swap encrypted;
+instead making partition after luksOpen
+mkswap /dev/mapper/encryptedswap
+swapon /dev/mapper/encryptedswap
+
+Add a line to /etc/crypttab
+encryptedswap /dev/sda11 /dev/urandom swap,cipher=aes-cbc-essiv:sha256,size=256
+
+Add a line to /etc/fstab
+dev/mapper/encryptedswap none swap defaults 0 0
+
+
+____Logical Volume Manager____
+system-config-lvm > gui
+
+physical drives are merged into volume group and then logical drives managed from pool
+
+vgcreate
+vgextend
+vgreduce
+vgdisplay
+
+pv comands manges physical partitions inside VGs (volume groups)
+pvcreate > convert partition to physical volume
+pvdisplay
+pvmove
+pvremove
+
+man lvm
+ls /sbin/lv*
+ls /sbin/pv*
+ls /sbin/vg*
+
+type 8E in fdisk
+
+lvcreate
+lvdisplay
+
+ex#
+pvcreate /dev/sdb1
+pvcreate /dev/sdc1
+vgcreate -s 16M vg /dev/sdb1
+vgextend vg /dev/sdc1
+lvcreate -L 50G -n mylvm vg
+mkfs -t ext4 /dev/vg/lvm
+mount
+
+-1st expand volume after extend fs
+-1st shrink fs then shrink volume
+
+fs resize tool for ext4 > resize2fs
+
+ex#extend;
+lvextend -L 500M /dev/vg/mylvm
+resize2fs /dev/vg/mylvm
+same;
+lvextend -r -L +100M /dev/vg/mylvm > usage of -r opt
+
+ex#shrink;
+unmount and fsck 1st
+resize2fs /dev/vg/mylvm 200M
+lvreduce -L 200M /dev/vg/mylvm
+mount
+same;
+lvreduce -r -L -100M /dev/vd/mylvm
+
+man fsadm
+
+also can reduce as;
+pvmove /dev/sdc1
+vgreduce vg /dev/sdc1
+
+snapshot;
+lvcreate -l 128 -s -n mysnap /dev/vg/lvm
+snapshot of  ../lvm will be created at ../mysnap
+then its mountable
+and removable by lvremove.
+
+at fdisk after create 'n' press t and select 8e for LVM
+
+vgcreate myvg /dev/sdaX /dev/sdaY > can be
+
+lvresize -r -L 350M(+50M) /dev/myvg/mylvm
+or
+lvextend -L 350M /dev/myvg/mylvm
+resize2fs /dev/myvg/mylvm
+both same
+
+____RAID____
+Redundant Array of Independent Disks
+-mirroring
+-striping
+-parity
+
+mdadm > RAID manager > created as /dev/mdx
+
+RAID 0 striping
+RAID 1 mirroring
+RAID 5 rotating parity stripe >single drive failure is ok > 3 drives needed
+RAID 6 > striped disks with dual parity > 2 drive failure is ok > 4 drives needed > no stress on drives as RAID 5
+RAID 10 mirroring and striping > 4 drives needed
+
+create partitions in each disk fdisk>fd
+create RAID dev with mdadm
+format RAID dev
+add dev to /etc/fstab
+mount
+capture RAID details
+
+mdadm -s stops RAID dev
+
+mdadm --create /dev/md0 --level=1 --raid-disks=2 /dev/sdbX /dev/sdcX
+
+bash -c "mdadm --detail --scan >> /etc/mdadm.conf"
+
+add to /etc/fstab
+/dev/md0 /myraid ext4 defaults 0 2
+
+cat /proc/mdstat > RAID status
+mdadm --detail /dev/md0 > RAID status
+
+mdadm -S /dev/md0 > stop RAID on md0
+
+edit /etc/mdadm.conf add;
+MAILADDR asd@asd.com
+
+and systemctl start mdmonitor 
+to get mail notifications from RAID status
+on ubuntu mdmonitor is mdadm as service
+
+-x switch 1 on mdadm means 1 spare device and can be added later
+
+mdadm --fail /dev/md0 /dev/sdb2 > test redundancy and hotspare
+
+to restore after test or remove faulty and add new
+mdadm --remove /dev/md0 /dev/sdb2
+mdadm --add /dev/md0 /dev/sde2
+
+
+____Kernel services and Configuration___
+monolithic architecture > when modules loaded its part of kernel
+
+lsmod > list loaded modules
+insmod> directly load modules
+rmmod>directly remove modules
+modprobe>load or unload modules using prebuild db with dependency inf.
+depmod>rebuild module dependency db
+modinfo>display info about module
+
+/sbin/insmod {path to}/modulename.ko
+/sbin/rmmod modulename > remove
+
+/lib/modules > modues path
+
+extensions;
+.ko
+e1000e.ko
+ext4.ko
+usbserial.ko
+
+modules should compiled when kernel compoled itself or later on a system retains correct config. and kernel resource
+
+generally used modprobe to load/unload modules
+
+/sbin/modprobe module_name
+/sbin/modprobe -r module_name
+/sbin/modprobe module_name parameter=1 > can change paramters before or after load
+
+for modprobe for modules should be installed under;
+/lib/modules/$(uname -r)
+
+not possible to remove module while its used by other modules or processes
+modprobe will load and unload all dependent modules
+
+/sbin/modinfo mymodule> module information
+/sys/module/mymodule/.. >> module parameters
+
+/etc/modprobe.d >> conf arg passed to modprobe directly
+
+/lib/modules/$(uname -r)/kernel/drivers >> driver modules
+
+____Devices and UDEV_______
+
+network drives dont have fs entries and uses system calls
+
+device drivers manage multiple device nodes in /dev directory
+
+system calls mknod(), stat() return info about major minor number
+
+POSIX (Portable operating System Interface) requires major minor
+
+udev > dynamic generation of device nodes even on fly with persistent device naming / runs as daemon and monitor netlink socket. When new dev connected uevent sends message
+1-libudev > intregration
+2-udevd or system-udevd manages /dev dir
+3-udevadm controls and diagnostics
+
+initramfs >> used at boot when /dev is clean to create preliminary dev nodes and udev infra
+
+devs added and removed by hotplug sub-system which gets preliminary data from /sys (sysfs) to create events for udev with correct permissings device names etc.
+
+/etc/udev/udev.conf > main conf file
+/etc/udev/rules.d > naming rules
+/usr/lib/udev/rules.d > naming rules
+
+udev does;
+device node naming
+device node and symbolic links creation
+setting file permissins and owndership for dev node
+taking other actions to initialize and make dev available
+
+______Virtualization_____
+Server
+Network > abstraction of hw
+Storage
+Application > containers
+
+host is underlying physical operating system
+guest is VM running on top and can be migrated to other hosts
+
+low lovel tuning as CPU utilizatuion, network throughput, memory utilization done on host
+application tuning done on guest
+
+Qemu > emulator
+
+Hypervisor is at host known as VMM(Virtual Machine Monitor) > KVM or Xen are native to linux
+
+Hardware virtualization(Full Virtualization)
+Para-virtualization > guest knows that it runs on host and modified for it
+
+Intel > IVT > Vanderpool
+AMD > AMD-V > Pasifica
+
+/proc/cpuinfo to see if its IVT capable vmx flag should be there
+AMD-V capable svm flag should be there
+
+hypervisor can be external to the host > VMWare
+internal to the host > KVM
+
+libvirt > toolkit for virtualization
+
+gui tools;
+virt-manager
+kimchi
+OpenStack
+oVirt
+
+command line tools;
+virt-*
+qemu-*
+
+formats;
+raw
+qcow2 > COW
+vdi:oracle virtual box
+vmdk: vmware
+
+qemu-img --help|grep format
+qemu-img convert -O vmdk myvm.qcow2 myvm.vmdk
+
+ex:
+$ sudo systemctl start libvirtd
+$ sudo virt-manager
+tc-install at created virt os > if it fails then you can not run again from virt-manager
+
+same from cli tool qemu;
+
+$ sudo qemu-img create -f qcow2 /var/lib/libvirtd/myimg.qcow2 24M
+$ sudo qemu-system-x86_64 -hda /var/lib/libvirtd/myimg.qcow2 \
+-cdrom /teaching/LFCW/RESOURCES/LFS301/CorePlus-current.iso \
+-usbdevice tablet
+
+OS containers> have init process to spawn multiple apps > linux LXC > using kernel namespace facilities and cgroups
+application virtuilaztion runs one app for each container > docker
+
+multiple containers share one OS kernel while VMs have own.
+
+Orchestration systems >Kubernetes or Mesos manages containers (load balancing, replicating images etc)
+
+Docker > application level virt. tool usind many individial images to bould necessary services to support application.
+It includes;
+Application code
+Runtime libraries
+System tools
+anything required by app
+
+Images resides at Docker HUB or registry server
+
+docker command help
+
+docker create > creates image
+docker run > start new container
+docker exec > run sth inside container
+docker images > show images
+docker rmi > remove image
+docker search sth
+docker ps > shows running docker containers
+
+______User account management_____
+/etc/passwd set as;
+User name
+User password
+User id
+Group ID
+comment for GECOS info
+Home directory
+login shell
+
+useradd someuser
+next available UID assigned as /etc/login.defs(UID_MIN)
+GID=UID assigned
+/home/someuser created
+login shell set as /bin/bash
+contents of /etc/skel copied to /home/someuser
+entry of !! or ! palaced under /etc/shadow(x is its used or instead x there will be hashed pw inside file /etc/passwd)
+
+/etc/default/useradd(useradd defaults)
+/etc/login.defs(also defs)
+
+overruling;
+useradd -s /bin/csh -m -k /etc/skel -c "info" someuser
+
+root can user userdel
+it doesnt remove home dir( use -r opt to do that)
+
+usermod >> changes user accounts (it will also take changes at /etc dir if necessary)
+
+some accounts locked by default and would return nologin(/etc/nologin.txt)
+like bin, daemon etc.
+
+usermod -L someuser > locks someuser
+usermod -U someuser > unlocks someuser
+
+chage -E 2000-01-01 someuser > changes expiration date
+
+vipw > special editor
+
+/etc/shadow
+username
+passwd
+lastchange
+mindays
+warn:days before warning
+grace:days after expiration allowed
+expire:date when disabled
+reserved
+
+pw hash starts with $6$ then 8 char salt then $ and 88 char (sha 512) hash
+
+Crack or John the ripper to guess decrypt
+
+passwd > tool to change passwords (strength checked by pam_cracklib.so)
+
+chage to set password expirations(only root can use it)
+
+bash -r > restricted bash
+cd is not working
+Can not redefine (SHELL, ENV, PATH)
+can not redirect I/O
+no write or execute at /home dir
+
+cd /bin ; sudo ln -s bash rbash > to get around restricted shell
+
+avoid adding system directories inside PATH environment table for securith
+
+/etc/ssh/sshd_config > permissions for SSH
+/etc/securetty > login devices allowed for root
+
+auditd > to log commands and view later with aureport
+
+ssh root@google.com
+or
+ssh -l root google.com
+or
+ssh google.com
+
+
+scp file.txt google.com:/etc/bin > copy files (-r opt. for folders)
+
+~/.ssh > config files as bellow
+id_rsa > private key
+id_rsa.pub > public key
+authorized_keys > permitted keys
+known_hosts
+config
+
+ssh-keygen > generates key pair
+
+tigervnc > stop colord if any bug
+
+sshd > daemon for ssh might need restart after adding users etc.
+
+PATH=$PATH:/tmp > to add environment variable (/tmp) to table PATH
+
+____Group Management_____
+
+/etc/group > edit with vigr
+
+groupadd
+groupdel
+groupmod
+usermod
+
+usermod -G (carefull because left out will be discarded -a opt to preserve previous changes)
+
+groups user > identify group
+id -Gn > identify group
+
+groupadd -g 210 newgroup > add newgroup with ID 210
+
+usermod -G newgroup, newgroup2 user> add user to groups
+
+____Permissings and Ownership____
+u > user
+g > group
+o > world(other)
+
+chgrp>change only group ownership
+chown -R > recursive
+
+umask shows which permissions to be denied before creating file (reverse of ls and operation will be applied during chmod)
+
+getfacl file|directory > to see ACLs
+setfacl opts permissiongs file |directory > set ACLs
+
+setfacl -m u:fool:rx /tmp/afile
+
+____Pluggable Authentication Modules___
+
+libpam
+/etc/pam.d/ > conf files
+type control module-path module-args
+
+type specifies management group
+auth
+account
+password
+session
+
+control > how success or failure affects overall authentication
+required
+requisite
+optional
+sufficiently
+
+LDAP (Lightweight Directory Access Protocol) > adm distributed services over network
+
+conf files for LDAP
+/etc/openldap/ldap.conf
+/etc/pam_ldap.conf
+/etc/nslcd.conf
+/etc/sshd/sssd.conf
+/etc/nsswitch.conf
+
+system-config-authentication > configure LDAP
+authconfig-tui > configure LDAP
+
+pam_tally2 module used to avoid login after few attempts
+
+Add the following two lines to /etc/pam.d/sshd :
+auth required pam_tally2.so deny=3 onerr=fail
+account required pam_tally2.so
+
+to see amounts of failures;
+pam_tally2
+to reset;
+pam_tally2 -u student -r
+
+
+_____Network____
+
+hostname > shows
+hostname <parameter> > changes hostname to parameter (non-persistent)
+
+hostnamectl > change hostname persistently
+hostnamectl set-hostname MYPC
+or edit /etc/hostname as root
+
+eth0, eth1 > ethernet devices
+wlan0,wlan1 > wireless devices
+br0, br1 > bridge interfaces
+vmnet0, vmnet1 > virtual devices
+
+lspci > BIOS provided PCI components
+
+sudo ip addr add 192.168.1.7 dev eth0 > set IP for eth0
+
+ip -s link show ens33 > show information about link
+
+ip link set eth0 down > bring interface down
+
+ip route add 172.16.1.0/24 via 192.168.1.5 > set rule
+
+ip addr show > show devices and dependent IPs
+
+ifconfig eth0 192.168.1.7 > set IP on interface
+
+ifconfig eth0 netmask 255.255.255.0 > set netmask
+
+ip and ifconfig settings are not persistent !!!
+
+Persistent IP configurations
+Redhat;
+/etc/sysconfig/network
+Debian;
+/etc/network/interface
+
+network managers > nmtui and nmcli
+
+man nmcli-examples
+
+
+route add default gw 192.168.1.1 enp2s0(interface) > add temp default gateway
+
+ip route add 10.5.0.0/16 via 192.168.1.100
+
+/etc/sysconfig/network-scripts/ > to edit route persistent
+
+/etc/hosts > hosts file
+/etc/resolv.conf > conf for usage of DNS
+
+mtr > combination of ping and traceroute
+dig > similar to nslookup and host
+route > shows routing
+
+ip addr show eth0>show your interface conf
+ip route > new form of route -n
+
+/etc/sysconfig/network-scripts/ifcfg-eth0(interface may differ) > persistent connection settings > can be checked by MAC here between ip addr show
+
+BOOTPROTO=dhcp or static
+
+/proc/sys/kernel/hostname > hostname
+
+nmcli con > interfaces
+nmcli con show "con name" > details
+nmcli con modify "con name" +ipv4.addresses 172.16.2.140/24 > add ipv4 address
+nmcli con up "Auto Ethernet" > make it up to refresh
+nmcli con modify "Auto Ethernet" -ipv4.addresses 172.16.2.140/24 >remove ipv4 adress
+
+
+nmcli conn mod "Auto Ethernet" +ipv4.routes "192.168.100.0/24 172.16.2.1" > add new route
+
+need to refresh afterwards
+
+2nd adress is gateway
+
+check from route or ip route
+
+use -ipv4.routes to remove
+
+conn at route adding not con !
+
+
+____Firewalls____
+firewalld
+firewall-cmd
+
+packet filtering;
+examines
+header
+payload
+footer
+
+stateful filters > examine connection state
+application layer firewalls
+
+fw configuration ?
+
+cli tools;
+iptables
+firewall-cmd
+ufw
+
+gui tools;
+system-config-firewall
+firewall-config
+gufw
+yast
+
+files;
+/etc/firewalld
+/usr/lib/firewalld
+/etc/firewalld
+
+firewalld replaces iptables service only one should run at the same time!
+
+runtime change for IP forwarding;
+sysctl net.ipv4.ip_forward=1
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+persistent change for IP forwarding;
+add net.ipv4.ip_forward=1
+to /etc/sysctl.conf
+sysctl -p or reboot after
+
+zones;
+drop > every connection dropped
+block > every connection blocked
+public > not trusted to any connection, connections permitted
+external > used when masquerading used trusts is same as public
+dmz > used to access some certain public resources
+work > trust at certain level
+home > mostly trusted
+internal > similar to work
+trusted > full trust
+
+public is set as default
+
+firewall-cmd --get-default-zone
+
+firewall-cmd --get-active-zone
+
+firewall-cmd --set-default-zone=public
+
+firewall-cmd --zone=internal --change-interface=ens33 > temprorary zone change
+
+firewall-cmd --permanent --zone=internal --change-interface =ens33 > permanent zone change
+
+firewall-cmd --get-zone-of-interface=ens33
+
+firewall-cmd --zone=public --list-all/--add-source=IP
+
+firewall-cmd --get-services / --list-services --zone=public
+
+firewall-cmd --permanent --zone=internal --add-service=dhcp
+
+firewall-cmd --reload
+
+/etc/firewalld/services
+
+firewall-cmd --zone=home --add-port=21/tcp
+
+firewall-cmd --zone=home --list-ports
+
+/etc/services
+
+
+sudo firewall-cmd --zone=public --add-service=https > add service to add permemently --permanent flag is necessary otherwise it will be removed after --reload
+
+____System startup and shutdown_____
+
+GRUB
+efilinux
+Das U-Boot
+bareboot
+
+RHEL > /etc/sysconfig
+Debian > /etc/default
+
+1-BIOS/UEFI locates and executes boot program or bootloader
+2-bootloader
+3-initrd initramfs
+4-init ps id=1
+5-other kernel modules(systemd, Upstart etc.)
+
+POST(Power on self test at BIOS)
+
+shutdown now
+
+
+_____GRUB_____
+Grand Unified Bootloader
+
+alt OS/kernels/remdisks can be choosen
+boot parameters can be changed at boot time without editing conf. files
+
+at boot conf read from > /boot/grub(maybe 2)/grub.cfg
+which generated by update-grub or grub2-mkconfig from /etc/grub.d on /etc/default/grub >never edited
+
+type e to edit boot conf or alter stanza
+
+installing required reboot, vmlinux and initramfs itcan be done chainloadin from one GRUB to another.
+
+grub2-install /dev/sda
+
+sda1 is (hd0,1) in GRUB2 (hd0,0) in GRUB1
+sdc4 is (hd2,4) in GRUB2 (hd2,3) in GRUB1
+
+ex;
+hit e at grub screen
+at end of linux16 line add 3(boot level 3) and remove 
+remove rhgb and quiet
+it will show all POST and disable gnome
+to run gnome type systemctl start gdm or one of bellow
+
+$ sudo systemctl start gdm
+$ sudo systemctl start lightdm
+$ sudo telinit 5
+$ sudo service gdm restart
+$ sudo service lightdm restart
+
+____SystemV,Upstart,systemd_____
+/sbin/init
+
+SystemVinit was serial and slow at startup and shutdown then;
+Upstart> for Ubuntu event driven
+systemd > for RHEL and migrated to other Linux OS
+developed
+
+systemd;
+boots faster
+paralellization
+socket and D-bus activation for starting services
+keep track of ps by cgroups
+support snapshots
+on demand daemons
+replaces scripts with programs > \.service files
+telinit
+
+/etc/vconsole.conf > keyboard mapping and console font
+/etc/sysctl.d/*.conf > kernel sysctl parameters
+/etc/os-release: distro ID
+
+systemctl list-units -t service > show active services add --all to see all
+systemctl start|stop service|path|service.service
+systemctl enable|disable service|path
+
+runlevel > can be changed by telinit /sbin/telinit 5
+
+init ps 1st runs /etc/inittab as lines;
+id:runlevel(s):action:process
+
+rc.sysinit script to run numerous functions at startup > /etc/rc.d/rc5.d/
+rc.loyal > to start system-specific apps
+actual scripts are in /etc/init.d/
+S>start
+K>kill
+
+chkconfig > manage initialization scripts with runlevels and S K links
+chkconfig --list service_name
+chkconfig some_service on
+chkconfig --add fake_service
+
+service serv_name stop|start
+
+Upstart(Ubuntu);
+/etc/init/rcS.conf
+/etc/rc.sysinit
+/etc/inittab
+/etc/rc[0-5].d/
+/etc/init/start-ttys.conf
+
+init > rcS.conf > rc-sysinit.conf (starts LVM, mount fs execute other runlevel scripts for default runlevel at /etc/inittab by passing rc.conf to runlevel) > ..prefdm.conf(run level 5)
+
+Upstart events at > /etc/event.d/
+
+initctl opts commands > tool to manage jobs
+http://upstart.ubuntu.com/cookbook/
+
+place wanted service script at /etc/systemd/ > to start with systemctl
+place wanted service script at /etc/init.d/ > to start with systemVinit (service/chkconfig)
+
+___Backup___
+Full
+Incremental
+Differential
+Multiple level incremental
+User
+
+programs > cpio | tar | gzip | bzip2 | xz | dd | rsync | dump and restore | mt
+
+cpio -o | --create > archives
+cpio -i | --extract > extracts archive
+cpio -t | --list > lists archive -v or --verbose available here
+
+find include | cpio -c -o | gzip -c > /home/student/backup/include.cpio.gz > compresses find file and backup with cpio
+cpio -idv < ../backup/include.cpio > extracts
+
+tar --create --file /location_to_save_archive /location_to_be_archived
+tar -cvf /location_to_save_archive /location_to_be_archived > same
+-M to use multi-volume option
+-d to verify files
+-x | --extract
+-p | --same-permissions > ensures extraction with original permissions
+-t|--list lists but not extracts
+
+incremental backup;
+tar --create --newer '2012-12-1' -vf backup1.tar /var/tmp
+tar --create --after-date '2012-12-1' -vzf backup1.tar /var/tmp
+--newer > should be seperated because of UNIX compability
+
+.gzip > use LZ77
+bzip2 > use Burrows-Wheeler block sorting and Huffman coding
+.xz > 
+
+dd if=input of=output opts. > copies raw data fast
+
+rsync opts source dest.
+
+rsync file.tar someone@backup.mydomain:/usr/local
+opt --dry-run to test
+
+rsync -av /usr/include .
+
+To get rid of the extra files you can use the --delete option:
+$ rsync -av --delete /usr/include .
+
+#!/bin/sh
+set -x
+rsync --progress -avrxH -e "ssh -c blowfish" --delete $*
+
+
+backup programs;
+amanda
+bacula
+clonezilla
+
+____Security Modules____
+SELinux > RHEL
+AppArmor > Ubuntu
+Smack
+TOMOYO
+
+cat /etc/selinux/config > mode selector for SELinux enforcing|permissive|disabled
+nano /etc/selinux/config
+removed #from enforcing
+
+getenforce
+setenforce
+
+Kernel parameter > selinux=0 it means disabled
+
+SELinux contexts:
+User
+Role
+Type
+Level
+
+ps -Z > Z opt shows SELinux context
+
+restorecon -Rv file > restores context so if any file copied from somewhere else with different context will be fixed
+
+semanage fcontext > change default contex after restorecon it will update desired folders context
+
+semanage fcontext -a -t httpd_sys_content_t /virtualHosts
+restorecon -RFv /virtualHosts
+
+every context has _t ext as default_t or httpd_sys_content_t
+
+semanage boolean -l > manages policy behaviour on runtime
+
+getsebool -a
+setsebool > use opt -P to set persistent boolean
+
+/var/log/messages > logs from setroubleshoot-server package
+
+sealert -l ID from logs > shows details
+
+sudo grep httpd /var/log/audit/audit.log |audit2allow -M mypol
+audit2allow > tool for conversion
+audit2why > same
+
+AppArmor(Ubuntu);
+Enforce mode
+Complain mode
+
+______Local Security______
+
+Essentials of security policy;
+confidentiality
+data integrity
+availability
+consistency
+control
+audit
+
+anything not expressly permitted is denied
+or
+anything not expressly forbidden is permitted
+
+GRUB can be password protected> authentication at bootloader can be bypassed by using different boot opt. therefore BIOS should be password protected
+
+mount opts;
+nodev > do not interpret character or block special devices on fs
+nosuid > set-user-identifier or set-group-identifier bits are not taking effect
+noexec > restrict direct execution of any binaries at fs
+ro > mount fs in read-only mode
+
+can be also edited at /etc/fstab after fs created.
+
+setguid / setuid > to set privilages of executables.
+
+chmod u+s file > permits this uid for this file
+chmod g+s file|folder > permits this gid for this file|folder and all files in folder
+
+can not permit access by this in a script, script only would change its own uid flag, need an binary executable to change it
+
+setup BIOS and bootloader password !!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extra-----------
+sudo cat doesnt works use >sudo sh -c"code block" instead
+
+echo 3 > /proc/sys/vm/drop_caches >drop caches
+
+cat into /dev/null to avoid writing to disk.
+
+dmesg > kernel messages.
+
+
+var=$(expr 1)
+$ echo $var
+
+
+
+
+
+
+

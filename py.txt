@@ -1,0 +1,734 @@
+By default it is /usr/local/bin/pythonX.X in Linux/Unix and C:\PythonXX in Windows
+
+nums = [1, 3, 5, 2, 4]
+nums.append(4)
+len(nums)
+
+words = ["Python", "fun"]
+index = 1
+words.insert(index, "is")
+['Python', 'is', 'fun']
+
+letters = ['p', 'q', 'r', 's', 'p', 'u']
+letters.index('r') is 2
+
+range function creates a sequential list of numbers.
+
+numbers = list(range(10))
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+range(20) == range(0, 20)
+
+range(3, 8) is [3, 4, 5, 6, 7]
+
+range(5, 20, 2) is [5, 7, 9, 11, 13, 15, 17, 19]
+
+while counter <= max_index:
+    sth
+end of loop
+
+for i in range(5):
+  print("hello!")
+end of loop
+
+num1 = float(input("Enter a number: "))
+
+--clear
+import os
+os.system('cls' if os.name == 'nt' else 'clear')
+
+def my_func():
+   print("spam")
+
+def print_with_exclamation(word):
+   print(word + "!")
+
+#comment
+
+"""
+docstring
+"""
+
+Functions can also be used as arguments of other functions.
+
+def add(x, y):
+  return x + y
+
+def do_twice(func, x, y):
+  return func(func(x, y), func(x, y))
+
+from math import pi,sqrt > imports only pi and sqrt from math module
+
+from math import sqrt as square_root
+
+pip > yum Package installer
+
+ImportError: an import fails;
+IndexError: a list is indexed with an out-of-range number;
+NameError: an unknown variable is used;
+SyntaxError: the code can't be parsed properly; 
+TypeError: a function is called on a value of an inappropriate type;
+ValueError: a function is called on a value of the correct type, but with an inappropriate value.
+
+
+try:
+   variable = 10
+   print(variable + "hello")
+   print(variable / 2)
+except ZeroDivisionError:
+   print("Divided by zero")
+except (ValueError, TypeError):
+   print("Error occurred")
+finally:
+   print("This code will run no matter what")
+
+print(1)
+raise ValueError
+print(2)
+
+try:
+   num = 5 / 0
+except:
+   print("An error occurred")
+   raise
+
+print(1)
+assert 2 + 2 == 4
+print(2)
+assert 1 + 1 == 3 #will throw assertion error and halt runtime
+print(3)
+
+temp = -10
+assert (temp >= 0), "Colder than absolute zero!" #will throw assertion error and print note
+
+myfile = open("filename.txt")
+cont = myfile.read()
+print(cont)
+
+open("filename.txt", "w or r or a(append) and b for binary opt. rb>binary read")
+
+myfile.close()
+
+file.readlines()
+
+for line in file:
+    print(line)
+#both ok
+
+file.write("This has been written to a file")
+
+When a file is opened in write mode, the file's existing content is deleted.
+
+amount_written = file.write(msg)
+
+try:
+   f = open("filename.txt")
+   print(f.read())
+finally:
+   f.close()
+
+with open("filename.txt") as f:
+   print(f.read())
+
+
+The None object is used to represent the absence of a value.
+
+#dicts.
+ages = {"Dave": 24, "Mary": 42, "John": 58}
+print(ages["Dave"])
+
+
+nums = {
+  1: "one",
+  2: "two",
+  3: "three",
+}
+print(1 in nums)
+
+#if it fails it returns text
+print(pairs.get(12345, "not in dictionary"))
+
+#Tuple
+words = ("spam", "eggs", "sausages",)
+
+# list
+list = ["one", "two"]
+
+# dictionary 
+dict = {1:"one", 2:"two"}
+
+# tuple 
+tp = ("one", "two")
+Tuples can be created without the parentheses
+
+squares = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+print(squares[2:6])
+print(squares[2:6:2])
+print(squares[2:-1])
+print(squares[7:5:-1])
+
+# a list comprehension
+cubes = [i**3 for i in range(5)]
+evens=[i**2 for i in range(10) if i**2 % 2 == 0]
+
+# string formatting
+nums = [4, 5, 6]
+msg = "Numbers: {0} {1} {2}". format(nums[0], nums[1], nums[2])
+print(msg)
+
+a = "{x}, {y}".format(x=5, y=12)
+
+print(", ".join(["spam", "eggs", "ham"]))
+#prints "spam, eggs, ham"
+
+print("Hello ME".replace("ME", "world"))
+#prints "Hello world"
+
+print("This is a sentence.".startswith("This"))
+# prints "True"
+
+print("This is a sentence.".endswith("sentence."))
+# prints "True"
+
+print("This is a sentence.".upper())
+# prints "THIS IS A SENTENCE."
+
+print("AN ALL CAPS SENTENCE".lower())
+#prints "an all caps sentence"
+
+print("spam, eggs, ham".split(", "))
+#prints "['spam', 'eggs', 'ham']" 
+
+nums = [55, 44, 33, 22, 11]
+
+if all([i > 5 for i in nums]):
+   print("All larger than 5")
+
+if any([i % 2 == 0 for i in nums]):
+   print("At least one is even")
+
+for v in enumerate(nums):
+   print(v)
+   
+with open(filename) as f:
+   text = f.read()
+
+
+#named function
+def polynomial(x):
+    return x**2 + 5*x + 4
+print(polynomial(-4))
+
+#lambda
+print((lambda x: x**2 + 5*x + 4) (-4))
+
+triple = lambda x: x * 3
+add = lambda x, y: x + y
+print(add(triple(3), 4))
+
+#map
+def add_five(x):
+  return x + 5
+
+nums = [11, 22, 33, 44, 55]
+result = list(map(add_five, nums))
+print(result)
+
+#filter
+nums = [11, 22, 33, 44, 55]
+res = list(filter(lambda x: x%2==0, nums))
+print(res)
+
+#generators
+def infinite_sevens():
+  while True:
+    yield 7
+        
+for i in infinite_sevens():
+  print(i)
+
+
+#decorator
+def decor(func):
+  def wrap():
+    print("============")
+    func()
+    print("============")
+  return wrap
+
+def print_text():
+  print("Hello world!")
+
+decorated = decor(print_text)
+decorated()
+
+# same decorator as bellow 
+
+@decor
+def print_text():
+    print("Hello world!")
+
+print_text();
+
+#RECURSE
+def is_even(x):
+  if x == 0:
+    return True
+  else:
+    return is_odd(x-1)
+
+def fib(x):
+  if x == 0 or x == 1:
+    return 1
+  else: 
+    return fib(x-1) + fib(x-2)
+print(fib(4))
+
+#sets
+nums = {1, 2, 3, 4, 1, 4, 5, 6}
+word_set = set(["spam", "eggs", "sausage"])
+
+print(3 in nums)
+print("spam" not in word_set)
+
+nums.add(-7)
+nums.remove(3) > uses value not indexes
+
+The union operator | combines two sets to form a new one containing items in either. 
+The intersection operator & gets items only in both. 
+The difference operator - gets items in the first set but not in the second. 
+The symmetric difference operator ^ gets items in either set, but not both.
+
+When to use a dictionary:
+- When you need a logical association between a key:value pair.
+- When you need fast lookup for your data, based on a custom key.
+- When your data is being constantly modified. Remember, dictionaries are mutable.
+
+When to use the other types:
+- Use lists if you have a collection of data that does not need random access. Try to choose lists when you need a simple, iterable collection that is modified frequently.
+- Use a set if you need uniqueness for the elements. 
+- Use tuples when your data cannot change. 
+
+#itertools
+
+The function count counts up infinitely from a value. 
+
+The function cycle infinitely iterates through an iterable (for instance a list or string). 
+
+The function repeat repeats an object, either infinitely or a specific number of times.
+
+takewhile - takes items from an iterable while a predicate function remains true;
+
+chain - combines several iterables into one long one; 
+
+accumulate - returns a running total of values in an iterable.
+
+nums = list(accumulate(range(8)))
+print(nums)
+print(list(takewhile(lambda x: x<= 6, nums)))
+
+>>>
+[0, 1, 3, 6, 10, 15, 21, 28]
+[0, 1, 3, 6]
+>>>
+
+letters = ("A", "B")
+print(list(product(letters, range(2))))
+print(list(permutations(letters))) 
+
+>>>
+[('A', 0), ('A', 1), ('B', 0), ('B', 1)]
+[('A', 'B'), ('B', 'A')]
+>>>
+
+#classes
+class Cat:
+  def __init__(self, color, legs):
+    self.color = color
+    self.legs = legs
+
+felix = Cat("ginger", 4)
+print(felix.color)
+
+
+class Animal: 
+  def __init__(self, name, color):
+    self.name = name
+    self.color = color
+
+class Cat(Animal):#superclass declaration fo inheritance
+  def purr(self):
+    print("Purr...")
+
+A class that inherits from another class is called a subclass.
+A class that is inherited from is called a superclass.
+
+
+
+class A:
+  def spam(self):
+    print(1)
+
+class B(A):
+  def spam(self):
+    print(2)
+    super().spam()
+            
+B().spam()
+
+>>>
+2
+1    
+>>> 
+super()#uses method from superclass
+
+#magic methods
+__init__ to create an instance
+__add__ for +
+__sub__ for -
+__mul__ for *
+__truediv__ for /
+__floordiv__ for //
+__mod__ for %
+__pow__ for **
+__and__ for &
+__xor__ for ^
+__or__ for |
+
+The expression x + y is translated into x.__add__(y). 
+
+There are equivalent r methods for all magic methods just mentioned.
+
+
+__lt__ for <
+__le__ for <=
+__eq__ for ==
+__ne__ for !=
+__gt__ for >
+__ge__ for >=
+
+__len__ for len()
+__getitem__ for indexing
+__setitem__ for assigning to indexed values
+__delitem__ for deleting indexed values
+__iter__ for iteration over objects (e.g., in for loops)
+__contains__ for in
+
+The del statement reduces the reference count of an object by one, and this often leads to its deletion.
+
+Weakly private methods and attributes have a single underscore at the beginning.This signals that they are private, and shouldn't be used by external code. However, it is mostly only a convention, and does not stop external code from accessing them. 
+
+Strongly private methods and attributes have a double underscore at the beginning of their names.This causes their names to be mangled, which means that they can't be accessed from outside the class. 
+
+class Spam:
+  __egg = 7
+  def print_egg(self):
+    print(self.__egg)
+
+s = Spam()
+s.print_egg()
+print(s._Spam__egg)
+print(s.__egg)
+
+
+#Ex
+class Rectangle:
+  def __init__(self, width, height):
+    self.width = width
+    self.height = height
+
+  def calculate_area(self):
+    return self.width * self.height
+
+  @classmethod
+  def new_square(cls, side_length):
+    return cls(side_length, side_length)
+
+square = Rectangle.new_square(5)
+print(square.calculate_area())
+
+
+#Ex
+class Pizza:
+  def __init__(self, toppings):
+    self.toppings = toppings
+
+  @staticmethod
+  def validate_topping(topping):
+    if topping == "pineapple":
+      raise ValueError("No pineapples!")
+    else:
+      return True
+
+ingredients = ["cheese", "onions", "spam"]
+if all(Pizza.validate_topping(i) for i in ingredients):
+  pizza = Pizza(ingredients) 
+
+Properties provide a way of customizing access to instance attributes. 
+
+
+#Ex
+class Pizza:
+  def __init__(self, toppings):
+    self.toppings = toppings
+    
+  @property
+  def pineapple_allowed(self):
+    return False
+
+pizza = Pizza(["cheese", "tomato"])
+print(pizza.pineapple_allowed)
+pizza.pineapple_allowed = True
+
+#Ex
+class Pizza:
+  def __init__(self, toppings):
+    self.toppings = toppings
+    self._pineapple_allowed = False
+
+  @property
+  def pineapple_allowed(self):
+    return self._pineapple_allowed
+
+  @pineapple_allowed.setter
+  def pineapple_allowed(self, value):
+    if value:
+      password = input("Enter the password: ")
+      if password == "Sw0rdf1sh!":
+        self._pineapple_allowed = value
+      else:
+        raise ValueError("Alert! Intruder!")
+
+pizza = Pizza(["cheese", "tomato"])
+print(pizza.pineapple_allowed)
+pizza.pineapple_allowed = True
+print(pizza.pineapple_allowed)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Keywords in Python programming language
+False	class	finally	is	return
+None	continue	for	lambda	try
+True	def	from	nonlocal	while
+and	del	global	not	with
+as	elif	if	or	yield
+assert	else	import	pass	 
+break	except	in	raise	 
+
+ssh-add -l > to confirm ssh for git

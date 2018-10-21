@@ -1,0 +1,20 @@
+The compile package is short of something,you should use yum to install these 5,and then recompile and install python3
+
+yum install readline-devel
+yum install tk-devel
+yum install tcl-devel  
+yum install openssl-devel   
+yum install sqlite-devel 
+and then recompile the python3
+
+tar Jxvf  Python-3.5.0.tar.xz
+cd Python-3.5.0
+./configure --prefix=/usr/local/python3
+make && make install
+
+pip install django
+
+python3.5 manage.py runserver
+python3.5 ./manage.py migrate
+
+python3.5 manage.py startapp webapp

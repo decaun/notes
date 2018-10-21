@@ -1,0 +1,44 @@
+
+
+-read next line for 1000 times
+
+create-react-app name >dev server\webpack\babel
+
+cd react-app/
+npm start
+localhost:3000
+
+npm i bootstrap@4.1.1 > install bootstrap v 4.1.1 inside project folder
+
+imrc > import react component snippet
+cc > create class snippet
+
+select > ctrl + d multi edit 
+
+
+if .this is encapsulated for inheritance;
+
+constructor(){
+super;
+this.handleIncrement=this.handle.increment.bind(this);
+}
+
+handleIncrement(){
+console.log("Increment Clicked",this);
+}
+
+experimental way;
+
+  handleIncrement = () => {
+    console.log("Increment Clicked",this);
+  }
+=> is error function and already inherited
+
+
+for state change need to use .setState as;
+this.setState({ count: this.state.count + 1 });
+
+inline functions;
+onclick={ () +> this.handleIncrement({id:1})}
+
+select and press F2 to edit all usages of state element
