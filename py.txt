@@ -716,11 +716,11 @@ print(pizza.pineapple_allowed)
 
 
 
+pyinstaller gui1.py --onefile --noconsole --win-no-prefer-redirects --uac-uiaccess --debug --upx-dir=C:\temp\upx-3.95-win32
 
 
 
-
-
+pyinstaller gui1.py --onefile --noconsole --uac-uiaccess --upx-dir=C:\temp\upx-3.95-win64\upx-3.95-win64
 
 Keywords in Python programming language
 False	class	finally	is	return
@@ -731,4 +731,199 @@ as	elif	if	or	yield
 assert	else	import	pass	 
 break	except	in	raise	 
 
-ssh-add -l > to confirm ssh for git
+
+print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False)
+print('I love {0} and {1}'.format('bread','butter'))
+input([prompt])
+num = input('Enter a number: ')
+
+
+
+python -m pip
+
+pip install auto-py-to-exe
+
+pyuic4 input.ui -o output.py
+
+pyuic4 -x input.ui -o output.py > at windows
+
+Create virtual env>
+virtualenv -p $( which python3.4 ) .lpvenv
+
+activate virtual env>
+source .lpvenv/bin/activate
+
+deactivate virtual env>
+(.virtualenv)...$> deactivate
+
+The order in which the namespaces are scanned when looking for a name is
+therefore: local, enclosing, global, built-in (LEGB).
+
+PEP8 > code writing style standard
+
+>>> import sys
+>>> sys.float_info
+
+
+Fraction(1, 3) + Fraction(2, 3) # 1/3 + 2/3 = 3/3 = 1/1
+f.numerator
+f.denominator
+
+
+D(3.14) # pi, from float,
+D('3.14') # pi, from a string no approximation issues
+
+immutable sequences: strings, tuples, and bytes.
+
+bool(0) # 0 evaluates to False
+
+str.encode('utf-8') > bytes obj
+b'This is \xc3\xbc\xc5\x8b\xc3\xadc0de'
+
+>>> c = 3.14 + 2.73j
+>>> c.real # real part
+3.14
+>>> c.imag # imaginary part
+2.73
+
+s[2:14] # slicing, both start and stop positions
+
+list((1, 3, 5, 7, 9)) # list from a tuple
+list('hello') # list from a string
+
+list methods;
+append
+count
+index
+
+extend
+insert
+pop
+remove
+reverse
+sort
+clear
+min
+max
+len
+sorted(a, key=itemgetter(0)) > key to select item in list for sort
+
+>>> sorted(a)
+[(1, 2), (1, 3), (2, -1), (4, 9), (5, 3)]
+
+>>> sorted(a, key=itemgetter(0))
+[(1, 3), (1, 2), (2, -1), (4, 9), (5, 3)]
+
+Sort first on the elements at position 0
+within the tuples
+
+>>> bytearray(10) # zero-filled instance with given length
+bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+
+
+>>set(mutable)/frozenset(immutable)
+bigger_primes = set([5, 7, 11, 13])
+
+>>> small_primes
+{2, 3, 5}
+small_primes | bigger_primes # union operator `|`
+small_primes & bigger_primes # intersection operator `&`
+small_primes - bigger_primes # difference operator `-`
+set methods;
+Add
+remove
+
+>>>Dicts
+>>> a = dict(A=1, Z=-1)
+>>> b = {'A': 1, 'Z': -1}
+>>> c = dict(zip(['A', 'Z'], [1, -1]))
+>>> d = dict([('A', 1), ('Z', -1)])
+>>> e = dict({'Z': -1, 'A': 1})
+>>> a == b == c == d == e # are they all the same?
+True # indeed!
+
+d['c'] = 3
+del d['a']
+'e' in d
+
+>>> list(zip('hello', range(1, 6))) # equivalent, more Pythonic
+[('h', 1), ('e', 2), ('l', 3), ('l', 4), ('o', 5)]
+
+a = dict(A=1, Z=-1)
+
+dict methods;
+clear
+keys
+values
+items
+popitem
+pop
+update
+get
+setdefault
+
+>>collections module;
+namedtuple() A factory function for creating tuple subclasses with named fields
+deque A list-like container with fast appends and pops on either end
+ChainMap A dict-like class for creating a single view of multiple mappings
+Counter A dict subclass for counting hashable objects
+OrderedDict A dict subclass that remembers the order entries were added
+defaultdict A dict subclass that calls a factory function to supply missing values
+UserDict A wrapper around dictionary objects for easier dict subclassing
+UserList A wrapper around list objects for easier list subclassing
+UserString A wrapper around string objects for easier string subclassing
+
+>>> Vision = namedtuple('Vision', ['left', 'right'])
+>>> vision = Vision(9.5, 8.8)
+>>> vision[0]
+9.5
+>>> vision.left # same as vision[0], but explicit
+9.5
+
+>>itertools
+compress
+count
+permutations
+
+
+def connect(**options):
+	conn_params = {
+	'host': options.get('host', '127.0.0.1'),
+
+def func(a, b, c=7, *args, **kwargs):
+	print('a, b, c:', a, b, c)
+	print('args:', args)
+	print('kwargs:', kwargs)
+
+____comprehensions___
+
+mx = 10
+legs = [(a, b, sqrt(a**2 + b**2))
+    for a in range(1, mx) for b in range(a, mx)]
+legs = [(a, b, int(c)) for a, b, c in legs if c.is_integer()]
+
+from string import ascii_lowercase
+lettermap = dict((c, k) for k, c in enumerate(ascii_lowercase, 1))
+
+word = 'Hello'
+swaps = {c: c.swapcase() for c in word}
+
+
+>>> from operator import itemgetter
+>>> rows = [(1, 2), (3, 4), (5, 6)]
+>>> map(itemgetter(1), rows)
+[2, 4, 6]
+
+list(map(itemgetter(0),list(enumerate(word))))
+
+
+
+print(square.__class__.__mro__) > method resolution order for square
+
+
+
+https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY
+
+sys.getsizeof(dict())
+
+

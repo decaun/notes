@@ -1,0 +1,36 @@
+
+sudo docker pull nginx
+sudo docker run image
+docker rmi > deletes container
+docker commit container_id image_name > saves repo
+docker run -it centos_deniz /bin/sh > interactive docker shell
+
+docker run -ti -v $(pwd):/mnt centos_deniz bash > mount inside docker image
+docker commit container_id centos_deniz:latest > run over image
+
+
+docker save -o <path for generated tar file> <image name>
+
+docker load -i <path to image tar file>
+
+
+cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+
+nohup docker run nginx& > runs as background job
+docker run -d nginx > runs inside docker
+docker exec -it container_name bash > enters inside container
+sudo docker run --name nginx_container -d -p 80:80 nginx
+docker commit nginx_container > save to restart later
+docker update --restart=always nginx_container > restart at boot
+to disable use (--restart=no) option
+sudo docker run --restart=no --name nginx_container2 -d -p 82:82 nginx > one liner
+docker rename $(docker ps -a |grep Up | cut -d " " -f1) ananas
+
+sudo docker container ls -a
+sudo docker container prune > removes all stopped containers
+
+docker network create --subnet=192.168.0.0/24 subs
+sudo docker run --restart=always --name nginx_container2 --net subs -d -p 82:82 nginx
+
+bg %n
+fg %n

@@ -1,0 +1,392 @@
+Essential Commands – 25%
+Operation of Running Systems – 20%
+User and Group Management – 10%
+Networking – 12%
+Service Configuration – 20%
+Storage Management – 13%
+Show More
+
+
+Essential Commands – 25%
+
+Log into local & remote graphical and text mode consoles                       +
+Search for files                                                               +
+Evaluate and compare the basic file system features and options                +
+Compare and manipulate file content                                            +
+Use input-output redirection (e.g. >, >>, |, 2>)                               +
+Analyze text using basic regular expressions                                   +
+https://www.digitalocean.com/community/tutorials/using-grep-regular-expressions-to-search-for-text-patterns-in-linux
+
+grep -e 'warning|error|critical' /var/log/messages
+ping centos.org -c 1 | grep -oE '([[:digit:]]{1,3}\.){3}[[:digit:]]{1,3}' |head -n 1
+grep -E "[[:alpha:]]{16,20}" GPL-3
+grep -E "[AEIOUaeiou]{3}" GPL-3
+
+Archive, backup, compress, unpack, and uncompress files                        +
+http://www.devblog.co/linux-archive-compress-unpack-and-uncompress-files-using-tar-gzip-and-bzip2/
+https://www.tecmint.com/18-tar-command-examples-in-linux/
+
+Create, delete, copy, and move files and directories                           +
+Create and manage hard and soft links                                          +
+List, set, and change standard file permissions                                +
+Read, and use system documentation                                             +
+man -wK "Hello World"
+
+Manage access to the root account                                              +
+
+
+Operation of Running Systems – 20%                                             
+                                                                               
+Boot, reboot, and shut down a system safely                                    +
+Boot or change system into different operating modes                           +
+https://www.tecmint.com/boot-into-single-user-mode-in-centos-7/
+https://www.thegeekdiary.com/centos-rhel-7-how-to-change-runlevels-in-rhel7-with-systemd/
+https://docs.bmc.com/docs/display/DISCO113/Booting+in+rescue+mode+on+CentOS+7
+
+Install, configure and troubleshoot bootloaders                                +
+https://www.techbrown.com/reinstall-m2-boot-loader-centos-7/
+https://wiki.centos.org/HowTos/Grub2
+cat /etc/default/grub
+grub2-mkconfig -o /boot/grub2/grub.cfg
+Scroll to the linux16 entry and add the following parameter at the end of the line: 
+systemd.unit=rescue.target
+
+Diagnose and manage processes                                                  +
+Locate and analyze system log files                                            +
+https://www.certdepot.net/rhel7-interpret-system-log-files/
+journalctl -u crond
+
+sudo find /var/log/ -exec grep -i -n "ssh" {} + 
+
+Schedule tasks to run at a set date and time                                   +
+https://www.linode.com/docs/tools-reference/tools/schedule-tasks-with-cron/
+
+Verify completion of scheduled jobs                                            +
+https://www.rosehosting.com/blog/automate-system-tasks-using-cron-on-centos-7/
+
+Update software to provide required functionality and security                 +
+Verify the integrity and availability of resources                             +
+https://www.tecmint.com/20-practical-examples-of-rpm-commands-in-linux/
+
+Verify the integrity and availability of key processes                         +
+https://www.tecmint.com/monitor-linux-processes-and-set-process-limits-per-user/
+https://developer.ibm.com/tutorials/l-lpic1-104-2/
+https://bencane.com/2013/12/23/yum-plugins-verifying-packages-and-configurations-with-yum-verify/
+
+Change kernel runtime parameters, persistent and non-persistent                +
+
+https://www.thegeekdiary.com/how-to-query-and-modify-kernel-parameters-using-sysctl-immediately-and-persistently-in-centos-rhel/
+https://www.tecmint.com/change-modify-linux-kernel-runtime-parameters/
+sysctl -w net.ipv4.ip_forward=0
+echo 0 > /proc/sys/net/ipv4/ip_forward
+sysctl -p
+echo "net.ipv4.ip_forward=0" > /etc/sysctl.d/net.conf
+
+Use scripting to automate system maintenance tasks                             +
+https://www.tecmint.com/using-shell-script-to-automate-linux-system-maintenance-tasks/
+
+Manage the startup process and services (In Services Configuration)            +
+systemctl list-unit-files|grep enabled
+
+List and identify SELinux/AppArmor file and process contexts                   +
+/etc/selinux/config
+getenforce
+setenforce
+To get a SELinux file/process context, type:
+ls -Z
+ps -eZ
+https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts
+
+https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-2-files-and-processes
+
+https://www.systutorials.com/docs/linux/man/8-semanage-fcontext/
+
+https://wiki.gentoo.org/wiki/SELinux/Quick_introduction
+
+https://www.thegeekdiary.com/what-are-selinux-users-and-how-to-map-linux-users-to-selinux-users/
+
+yum install setools-console
+
+chcon --type var_t /var/www/html/index.html
+
+Manage Software                                                                +
+Identify the component of a Linux distribution that a file belongs to          +
+
+
+User and Group Management – 10%                                                
+                                                                               
+Create, delete, and modify local user accounts                                 +
+https://www.tecmint.com/usermod-command-examples/
+chage -l tecmint
+usermod -e 2014-11-01 tecmint
+usermod -d /var/www/ tecmint
+usermod -d /var/pinky/ -m pinky
+usermod -a -G wheel tecmint_test0 > suplementary group
+usermod -l tecmint_admin tecmint > change login name
+usermod -s /bin/sh babin > change shell
+usermod -u 888 babin > change UID
+usermod -c "This is Tecmint" tecmint > add context
+id tecmint
+
+
+Create, delete, and modify local groups and group memberships                  +
+groups <username>
+getent group
+groupmod -g 
+Manage system-wide environment profiles                                        +
+Manage template user environment                                               +
+Configure user resource limits                                                 +
+Manage user privileges                                                         +
+Configure PAM                                                                  +
+https://likegeeks.com/linux-pam-easy-guide/
+
+
+Networking – 12%                                                               
+                                                                               
+Configure networking and hostname resolution statically or dynamically         +
+https://manyrootsofallevilrants.blogspot.com/2011/06/configure-networking-and-hostname.html
+https://support.rackspace.com/how-to/centos-hostname-change/
+
+Configure network services to start automatically at boot                      +
+https://www.certdepot.net/sys-configure-services-to-start-at-boot/
+
+Implement packet filtering                                                     +
+https://www.tecmint.com/perform-packet-filtering-network-address-translation-and-set-kernel-runtime-parameters-in-rhel/
+
+iptables -A OUTPUT -p tcp -d www.google.com -j REJECT --reject-with tcp-reset
+
+Start, stop, and check the status of network services                          +
+Statically route IP traffic                                                    +
+Synchronize time using other network peers                                     +
+https://www.rootusers.com/how-to-synchronize-time-in-linux-with-ntp-peers/
+hwclock --hctosys
+
+hwclock --set --date "8/11/2013 23:10:45"
+firewall-cmd --add-service ntp
+or
+yum install chrony -y
+
+Service Configuration – 20%                                                    
+                                                                               
+Configure a caching DNS server                                                 +
+https://www.tecmint.com/install-configure-cache-only-dns-server-in-rhel-centos-7/
+
+Maintain a DNS zone                                                            +
+https://likegeeks.com/linux-dns-server/
+
+Configure email aliases                                                        +
+https://www.walkernews.net/2008/01/16/how-to-setup-email-alias-in-red-hat-linux/
+
+Configure SSH servers and clients                                              +
+https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys
+ssh-keygen -b 4096
+ssh-copy-id -i ~/.ssh/id_rsa.pub user@somehost
+ssh-add id_rsa
+
+Restrict access to the HTTP proxy server                                       +
+https://www.tecmint.com/install-squid-http-proxy-on-centos-7/
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-use-squid
+https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands
+https://www.digitalocean.com/community/tutorials/how-to-migrate-from-firewalld-to-iptables-on-centos-7
+https://www.tecmint.com/firewalld-rules-for-centos-7/2/
+https://www.linode.com/docs/security/firewalls/introduction-to-firewalld-on-centos/
+https://serverfault.com/questions/618164/block-outgoing-connections-on-rhel7-centos7-with-firewalld
+https://www.linode.com/docs/security/firewalls/control-network-traffic-with-iptables/
+
+firewall-cmd --direct --add-rule ipv4 filter OUTPUT 1 -s 0.0.0.0 -d 172.217.20.174 -j DROP
+
+firewall-cmd --direct --add-rule ipv4 filter INPUT 1 -d 172.217.20.174 -j ACCEPT
+
+firewall-cmd --direct --remove-rule ipv4 filter OUTPUT 2 -s 192.168.13.179 -d 172.217.20.174 -j DROP
+
+
+firewall-cmd --direct --get-all-rules
+https://www.lisenet.com/2016/firewalld-rich-and-direct-rules-setup-rhel-7-server-as-a-router/
+firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -p tcp -d centos.org --dport 443 -j DROP
+firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -p tcp -d 217.160.0.230 --dport 80 -j DROP
+
+firewall-cmd --zone=public --add-forward-port='addr=10.8.8.71:port=2271:proto=tcp:toport=22:toaddr=10.8.8.71'
+
+firewall-cmd --complete-reload
+
+firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="85.12.30.226" service name="http" reject'
+
+firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.0.0/24" service name="ssh" log prefix="ssh" level="info" limit value="50/m" accept'
+
+firewall-cmd --permanent --zone=testing --add-rich-rule='rule family=ipv4 source address=10.0.0.0/24 destination address=192.168.0.10/32 port port=8080-8090 protocol=tcp accept'
+
+
+
+Configure an IMAP and IMAPS service                                            -
+https://hostpresto.com/community/tutorials/how-to-setup-an-email-server-on-centos7/
+
+Query and modify the behavior of system services at various operating modes    +
+https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal
+
+Configure an HTTP server                                                       +
+https://www.tecmint.com/install-apache-on-centos-7/
+Configure HTTP server log files                                                +
+Configure a database server                                                    -
+https://support.rackspace.com/how-to/installing-mariadb-server-on-centos/
+Restrict access to a web page                                                  +
+/etc/hosts
+127.0.0.1 google.com
+
+Manage and configure containers                                                +
+Manage and configure Virtual Machines                                          -
+
+
+Storage Management – 13%                                                       
+                                                                               
+List, create, delete, and modify physical storage partitions                   +
+
+mount -t tmpfs -o size=1G none /mnt/tmpfs
+
+sudo fdisk -C 130 imagefile
+sudo losetup -f
+mknod -m 0660 /dev/loop8 b 0 1
+sudo losetup /dev/loop1 imagefile
+sudo parted -s /dev/loop1 mklabel msdos
+sudo parted -s /dev/loop1 unit MB mkpart primary ext4 0 256
+fdisk -l /dev/loop1
+sudo mkfs.ext3 /dev/loop1p1
+sudo mount /dev/loop1p1 mnt1
+
+sudo fdisk /dev/sda
+partprobe -s
+sudo mkfs -t ext4 -v /dev/sda11
+sudo mkfs -t ext4 -b 2048 -v /dev/sda11
+
+
+
+Manage and configure LVM storage                                               +
+sudo fdisk /dev/sda
+sudo pvcreate /dev/sdaX
+sudo pvdisplay
+sudo vgcreate myvg /dev/sdaX /dev/sdaY
+sudo vgdisplay
+sudo lvcreate -L 300M -n mylvm myvg
+sudo lvdisplay
+sudo mkfs.ext4 /dev/myvg/mylvm
+sudo mount /dev/myvg/mylvm /mylvm
+
+sudo lvresize -r -L 350M /dev/myvg/mylvm
+sudo lvresize -r -L +50M /dev/myvg/mylvm
+
+
+Create and configure encrypted storage                                         +
+
+sudo cryptsetup luksFormat /dev/sda4
+sudo cryptsetup luksOpen /dev/sda4 secret-disk
+
+/etc/crypttab:
+secret-disk /dev/sda4
+
+sudo mkfs -t ext4 /dev/mapper/secret-disk
+sudo mkdir -p /secret
+sudo mkfs -t ext4 /dev/mapper/secret-disk
+
+/etc/fstab:
+/dev/mapper/secret-disk /secret ext4 defaults 1 2
+
+sudo mount -a
+
+Configure systems to mount file systems at or during boot                      +
+Configure and manage swap space                                                +
+/sys/block/sda/queue/
+/proc/sys/vm
+Create and manage RAID devices                                                 -
+
+mdadm
+
+Configure systems to mount file systems on demand                              +
+Create, manage and diagnose advanced file system permissions                   +
+https://www.tecmint.com/manage-users-and-groups-in-linux/
+
+Setup user and group disk quotas for filesystems                               +
+/etc/security/limits.conf
+https://www.linuxtechi.com/enable-user-group-disk-quota-on-centos-7-rhel-7/
+quotaon /home/
+edquota -g sys_admin
+repquota -as
+setquota -u -F vfsv0 bob 2097152 2097152 1000000 1000000 /
+
+
+Create and configure file systems                                              +
+dumpe2fs imagefile > dumpe2fs-output-initial
+tune2fs -c 30 imagefile
+dumpe2fs imagefile > dumpe2fs-output-final
+
+___extra____
+https://www.cyberciti.biz/tips/howto-deny-allow-linux-user-group-login.html
+-Pam auth
+vi /etc/login.group.allowed
+Add group names:
+root
+wheel
+webdev
+
+vi /etc/pam.d/system-auth
+auth required pam_listfile.so onerr=fail item=group sense=allow file=/etc/login.group.allowed
+
+
+https://www.2daygeek.com/allow-permit-normal-user-group-to-run-certain-particular-commands-as-root-with-sudo/#
+
+https://www.tecmint.com/change-modify-linux-disk-partition-label-names/
+tune2fs –L ROOT_PART /dev/sda1
+ntfslabel /dev/sda5 NTFS_DIR
+
+-visudo
+[UserName] [HostName|ALL]= [NOPASSWD:|ALL|options] [Command1, Command2,..CommandN /bin/shell restart /usr/bin/*]
+alias docker="sudo /usr/bin/docker"
+
+https://linuxconfig.org/configuring-virtual-network-interfaces-in-linux
+https://www.thegeekstuff.com/2012/04/route-examples/
+route add default gw 192.168.1.10
+route add -host 192.168.1.51 reject
+route add -net 192.168.1.0 netmask 255.255.255.0 reject
+
+to connect network to gateway
+host - route add default gw 192.168.3.10
+gateway - route add -net 192.168.3.0 netmask 255.255.255.0 gw 192.168.3.10
+
+add secondary ip:
+ip address add [ip]/[mask-digits] dev [nic]
+
+https://whstatic.1and1.com/help/CloudServer/EN-US/d851230.html
+
+https://www.adminschoice.com/crontab-quick-reference
+https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/
+https://www.rosehosting.com/blog/automate-system-tasks-using-cron-on-centos-7/
+
+https://www.adminschoice.com/repairing-unix-file-system-fsck
+
+https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files
+
+https://superuser.com/questions/136646/how-to-append-to-a-file-as-sudo
+echo "output" | sudo tee -a file
+sudo bash -c "somecommand >> somefile"
+
+https://www.systutorials.com/816/port-forwarding-using-iptables/
+iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j DNAT --to 192.168.1.2:8080
+iptables -A FORWARD -p tcp -d 192.168.1.2 --dport 8080 -j ACCEPT
+https://www.systutorials.com/239761/force-linux-unmount-filesystem-reporting-device-busy/
+lsof | grep '/mnt/data'
+fuser /mnt/data
+fuser -k /mnt/data > logs out user
+https://www.revsys.com/writings/quicktips/nat.html
+
+https://www.systutorials.com/239880/change-systemd-boot-target-linux/
+https://www.systutorials.com/240159/vim-tutorial-beginners-vimtutor/
+https://www.thomas-krenn.com/en/wiki/Saving_Iptables_Firewall_Rules_Permanently
+
+
+mkdir -p dir1/dir2/dir3/dir4/dir5
+mkdir -pv dir1/dir2/dir3/dir4/dir5
+
+netstat -nlpt
+
+systemctl daemon-reexec
+
+chkonfig 
+sudo ntsysv

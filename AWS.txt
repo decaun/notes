@@ -1,0 +1,40 @@
+IaaS
+Infrascture as a service
+Contains basic building blocks for cloud IT
+
+PaaS
+Platform as a Service
+AWS manages underlying infrastructure(HW and OS)
+RDS,EMR,ElasticSearch
+
+SaaS
+Software as a Service
+Completed product as managed service
+
+Serverless
+FaaS
+Function as a Service
+S3
+AWS Lambda
+DynamoDB
+SNS
+
+
+
+Storage services----
+Simple Storage Service(S3)
+Glacier > cheapest long term archive
+Elastic Block Store(EBS)>as attachment storage
+Elastic File System > network attached
+Storage Gateway>Hybrid
+Snowball>migrations
+
+
+Virtual Private Cloud
+servers inside
+amazon ebs inside connected
+efs mount target inside
+
+
+
+

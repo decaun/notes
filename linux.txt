@@ -1664,7 +1664,7 @@ security
 system
 
 lsattr filename
-chattr [=|-|=mode] filename
+chattr [+|-|=mode] filename
 
 i:immutable
 a:append-only
@@ -2780,43 +2780,263 @@ can not permit access by this in a script, script only would change its own uid 
 
 setup BIOS and bootloader password !!!
 
+_____Troubleshooting______
+
+logs > /var/log/messages or /var/log/secure
+
+network driver check > lsmod, /sys/class/net, /proc/interrupts
+gateway check > route -n
+hostname check> dig, host
+package check> rpm -V some_package, rpm -Va checks all
+kernel loads but failure at fs mount > check GRUB conf, /etc/fstab, initramfs
+fail of init proc. > start boot with run level 1(single user mode) or 3(no graphs)
+mount failure > fsck
+
+mount -o remount,rw /
+mount -a
+
+chroot /mnt/sysimage > move to fs to rescue files
+use rpm to install on only ch-rooted fs use --force=/mnt/systemimage
+
+_____System Rescue_____
+
+if rescue from live media > installation tree should be same as current Linux version
+
+if using image.iso then network based install tree will be needed
+
+chroot to access /
+
+livecd-tools
+liveusb-creator
+
+emergency mode > no init(it can be used without init if init ps fails)
+activation of emergency mode > hit e and add "emergency" word to kernel cli
+
+if system boots but does not allow login use single user mode;
+init started 
+no service,network
+fs mounted
+root without password
+shell launched
+runlevel 1 in sysVinit
+
+activation of single user mode > hit e and add "single" word to kernel cli
+
+dd if=/dev/sda of=/root/mbrsave bs=446 count=1 > MBR save
+
+Re-install (or install) package from within the rescue environment. First, mount the install media at /mnt/source:
+$ mount /dev/cdrom /mnt/source
+Then reinstall the package:
+$ rpm -ivh --force --root /mnt/sysimage /mnt/source/Packages/package*.rpm
+
+rpm -q package > check if installed
+
+
+___Docker___
+
+
+sudo docker pull nginx
+sudo docker run image
+docker rmi > deletes container
+docker commit container_id image_name > saves repo
+docker run -it centos_deniz /bin/sh > interactive docker shell
+
+docker run -ti -v $(pwd):/mnt centos_deniz bash > mount inside docker image
+docker commit container_id centos_deniz:latest > run over image
+
+
+docker save -o <path for generated tar file> <image name>
+
+docker load -i <path to image tar file>
+
+
+cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+
+nohup docker run nginx& > runs as background job
+docker run -d nginx > runs inside docker
+docker exec -it container_name bash > enters inside container
+sudo docker run --name nginx_container -d -p 80:80 nginx
+docker commit nginx_container > save to restart later
+docker update --restart=always nginx_container > restart at boot
+to disable use (--restart=no) option
+sudo docker run --restart=no --name nginx_container2 -d -p 82:82 nginx > one liner
+docker rename $(docker ps -a |grep Up | cut -d " " -f1) ananas
+
+sudo docker container ls -a
+sudo docker container prune > removes all stopped containers
+
+docker network create --subnet=192.168.0.0/24 subs
+sudo docker run --restart=always --name nginx_container2 --net subs -d -p 82:82 nginx
+
+bg %n
+fg %n
+
+alias docker="sudo /usr/bin/docker"
+
+
+____Iptables____
+
+iptables -L > shows list
+iptables -P FORWARD DROP > change policy to DROP for FORWARD chain
+iptables -A INPUT -s 10.0.0.1 -j ACCEPT > append rule
+iptables -A INPUT -s 10.0.0.0/24 -p tcp --destination-port 25 -j DROP > append rule
+iptables -D INPUT 3 > delete 2nd rule at chain INPUT
+iptables -I INPUT -s 192.168.0.1 -j ACCEPT >> adds rule to top of chain
+iptables -I INPUT 2 -s 192.168.0.1 -j ACCEPT >> adds rule to 2nd step of chain
+iptables --flush INPUT > flush chain
+
+iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j DNAT --to 192.168.1.2:8080
+iptables -A FORWARD -p tcp -d 192.168.1.2 --dport 8080 -j ACCEPT
+
+https://www.thegeekstuff.com/2011/01/iptables-fundamentals
+
+service iptables save
+/usr/libexec/iptables/iptables.init save
+
+iptables-save > /etc/sysconfig/iptables
+iptables-restore < /etc/sysconfig/iptables
+
+share internet;
+https://www.cyberciti.biz/faq/rhel-fedora-linux-internet-connection-sharing-howto/
+# vi /etc/sysctl.conf
+net.ipv4.conf.default.forwarding=1
+service network restart
+
+# service iptables stop
+# iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+# service iptables save
+# service iptables restart
+
+iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j DNAT --to 0.0.0.0:80
+
+iptables -A FORWARD -p tcp -d 0.0.0.0 --dport 80 -j ACCEPT
+
+iptables -L -n
+
+iptables -t nat -L
+
+- Forward the packets from your internal network, on /dev/eth1, to your external network on /dev/eth0
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+iptables -A FORWARD -i eth0 -o eth1 -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
+
+https://www.digitalocean.com/community/tutorials/how-to-forward-ports-through-a-linux-gateway-with-iptables
+
+
+echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward
+sudo nano /etc/sysctl.conf
+net.ipv4.ip_forward=1
+sudo sysctl -p
+sudo sysctl --system
+
+
+sudo iptables -A FORWARD -i eth0 -o eth1 -p tcp --syn --dport 80 -m conntrack --ctstate NEW -j ACCEPT
+
+
+sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination 192.0.2.2
+sudo iptables -t nat -A POSTROUTING -o eth1 -p tcp --dport 80 -d 192.0.2.2 -j SNAT --to-source 192.0.2.15
+
+sudo service iptables-persistent save
+
+iptables -t nat -I OUTPUT --src 0/0 --dst 192.168.1.5 -p tcp --dport 80 -j REDIRECT --to-ports 8123
+
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 192.168.12.77:80
+iptables -t nat -A POSTROUTING -p tcp -d 192.168.12.77 --dport 80 -j SNAT --to-source 192.168.12.87
+
+
+https://explainshell.com/explain?cmd=iptables+-A+INPUT+-m+state+--state+ESTABLISHED%2CRELATED+-j+ACCEPT#
+
+https://www.cyberciti.biz/faq/linux-web-server-firewall-tutorial/
+
+https://www.linuxtopia.org/Linux_Firewall_iptables/x4658.html
+
+___Network route - extra____
+route add default gw 192.168.1.10
+route add -host 192.168.1.51 reject
+route add -net 192.168.1.0 netmask 255.255.255.0 reject
+
+to connect network to gateway
+host - route add default gw 192.168.3.10
+gateway - route add -net 192.168.3.0 netmask 255.255.255.0 gw 192.168.3.10
+
+add secondary ip:
+ip address add [ip]/[mask-digits] dev [nic]
+
+
+route add -net 192.168.0.0 netmask 255.255.255.0 gw 192.168.0.220
+
+
+iptables -A FORWARD -p tcp -d 192.168.0.0 --dport 80 -j ACCEPT
+
+
+netstat -rn
+
+-Add a permanent static route
+To make the route permament, you need to create a static route configuration file. Create a file with the name route-interface in /etc/sysconfig/network-scripts, such as:
+
+nano /etc/sysconfig/network-scripts/route-eth0
+Then, add the same line you would with ip route add:
+
+172.16.5.0/24 via 10.0.0.101 dev eth0
+
+http://www.nesociety.org/tutorials/linux-centos/how-to-share-internet-connectivity-by-enabling-ip-fowarding-in-centos/#.XJEi6Cj0mUk
+
+
+/sbin/iptables -A FORWARD -i eth0 -o eth1 -m state --state ESTABLISHED,RELATED -j ACCEPT
+/sbin/iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
+/sbin/iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -o eth1 -j MASQUERADE
+
+
+
+nmblookup -A 10.1.1.1
 
 
 
 
+__SELINUX____
 
+semanage boolean -l | less
 
+getsebool ftpd_anon_write
 
+setsebool ftpd_anon_write on
 
+________________________
 
+allow <domain> <type>:<class> { <permissions> };
 
+ 
 
+sesearch --allow --source httpd_t --target httpd_sys_content_t --class file
 
+chcon --type var_t /var/www/html/index.html
 
+restorecon -v /var/www/html/index.html
 
+ 
 
+cat /etc/selinux/targeted/contexts/files/file_contexts
 
+ 
 
+semanage fcontext --add --type httpd_sys_content_t "/www(/.*)?"
 
+restorecon -Rv /www  > to restore
 
+matchpathcon -V /www/html/index.html > to check
 
+________________________
 
+semanage login -l
 
+semanage user -l
 
+semanage login -a -s guest_u guestuser > change Selinux_user for Unix user
 
+seinfo -uuser_u -x > see information for user_u
 
-
-
-
-
-
-
-
-
-
-
-
-
+seinfo -ruser_r -x > see allowed policies for user_r
 
 
 
@@ -3014,5 +3234,35 @@ $ echo $var
 
 
 
+ssh-add -l > to confirm ssh for git
+
+jolk -v Django > versions
+
+find . -type [f or d] -size -10k -iname "*.php" -exec grep -i -n "sandwitch" {}+
+
+cat /etc/os-release
+
+sudo nano /etc/ssh/sshd_config >> ssh config
+
+echo public_key_string >> ~/.ssh/authorized_keys
 
 
+https://training.linuxfoundation.org/cm/prep/?course=LFS301
+
+iptables -A INPUT -s google.com -j DROP
+iptables -A OUTPUT -d google.com -j DROP
+iptables-save | sudo tee /etc/sysconfig/iptables
+
+
+
+gnome disable login screen;
+Add the following stanza into a [daemon] section of your /etc/gdm/custom.conf while replacing keyword "linuxconfig" with a username of your autologin user:
+[daemon]
+AutomaticLogin=student
+AutomaticLoginEnable=True
+
+run terminal at startup:
+echo "gnome-terminal&" >> ~/.bash_profile
+
+Find public IP
+dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}'
