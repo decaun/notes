@@ -1,0 +1,292 @@
+Cloud shell provides the following:
+
+Temporary Compute Engine VM
+Command-line access to the instance via a browser
+5 GB of persistent disk storage ($HOME dir)
+Pre-installed Cloud SDK and other tools
+gcloud: for working with Google Compute Engine and many GCP services
+gsutil: for working with Cloud Storage
+kubectl: for working with Google Container Engine and Kubernetes
+bq: for working with BigQuery
+Language support for Java, Go, Python, Node.js, PHP, and Ruby
+Web preview functionality
+Built-in authorization for access to resources and instances
+
+-- Storage commands --
+
+gsutil mb gs://<BUCKET_NAME> > creates new bucket
+gsutil cp [MY_FILE] gs://[BUCKET_NAME] > copy files from shell to bucket
+gcloud compute regions list
+
+source infraclass/config > set env variables inside file (...INFRACLASS_REGION=us-central1)
+
+edit .profile (not .bash_profile) to set scripts at shell startup
+
+
+-- Network commands --
+
+
+gcloud compute networks create $NETWORK_NAME --subnet-mode=custom
+gcloud compute networks subnets create $SUBNET_NAME --network=privatenet --region=us-central1 --range=172.16.0.0/24
+
+gcloud compute networks list
+gcloud compute networks subnets list --sort-by=NETWORK
+
+With CIDR make sure to include the /0 in the Source IP ranges to specify all networks.
+
+gcloud compute firewall-rules create $RULE_NAME --direction=INGRESS --priority=1000 --network=$NETWORK_NAME --action=ALLOW --rules=icmp,tcp:22,tcp:3389 --source-ranges=0.0.0.0/0
+
+gcloud compute firewall-rules list --sort-by=NETWORK
+
+
+-- Compute Engine commands --
+
+gcloud compute instances create $INSTANCE_NAME --zone=us-central1-c --machine-type=f1-micro --subnet=$NETWORK_NAME
+
+gcloud compute instances list --sort-by=ZONE
+
+
+free > shows memory
+sudo dmidecode -t 17  > shows memory details
+nproc > number of cpus
+lscpu > shows cpu details
+
+yum -y install screen > extra console at background
+
+-- Cloud Storage commands --
+
+gsutil acl get gs://$BUCKET_NAME_1/setup.html  > acl.txt
+cat acl.txt
+
+# make priv.
+gsutil acl set private gs://$BUCKET_NAME_1/setup.html
+
+# make public read
+gsutil acl ch -u AllUsers:R gs://$BUCKET_NAME_1/setup.html
+
+The encryption controls are contained in a gsutil configuration file named .boto
+
+# generate .boto 
+gsutil config -n
+
+gsutil cp setup2.html gs://$BUCKET_NAME_1/
+gsutil rewrite -k gs://$BUCKET_NAME_1/setup2.html
+
+gsutil lifecycle get gs://$BUCKET_NAME_1
+gsutil lifecycle set life.json gs://$BUCKET_NAME_1
+
+gsutil versioning get gs://$BUCKET_NAME_1
+gsutil versioning set on gs://$BUCKET_NAME_1
+
+# Copy with versioning
+gsutil cp -v setup.html gs://$BUCKET_NAME_1
+
+gsutil rsync -r ./firstlevel gs://$BUCKET_NAME_1/firstlevel
+
+gcloud auth activate-service-account --key-file credentials.json
+
+## SQL
+ 
+# Proxy script
+wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -
+O cloud_sql_proxy && chmod +x cloud_sql_proxy
+# Enable proxy on VM
+./cloud_sql_proxy -instances=$INSANCE_NAME=tcp:3306 &
+
+
+-- Deployment commands --
+
+
+gcloud app deploy app.yaml
+gcloud app browse
+# redeploy
+gcloud app deploy app.yaml --quiet
+
+# Stress test
+ab -n 500000 -c 1000 http://$LB_IP/
+
+-- Deployment Manager Commands -- 
+
+gcloud deployment-manager types list | grep network
+gcloud deployment-manager types list | grep firewall
+gcloud deployment-manager types list | grep instance
+
+## example config.YAML
+
+'''
+imports:
+- path: instance-template.jinja
+resources:
+# Create the auto-mode network
+- name: mynetwork
+  type: compute.v1.network
+  properties:
+    autoCreateSubnetworks: true
+
+# Create the firewall rule
+- name: mynetwork-allow-http-ssh-rdp-icmp
+  type: compute.v1.firewall
+  properties:
+    network: $(ref.mynetwork.selfLink)
+    sourceRanges: ["0.0.0.0/0"]
+    allowed:
+    - IPProtocol: TCP
+      ports: [22, 80, 3389]
+    - IPProtocol: ICMP
+
+# Create the mynet-us-vm instance
+- name: mynet-us-vm
+  type: instance-template.jinja
+  properties:
+    zone: us-central1-a
+    machineType: n1-standard-1
+    network: $(ref.mynetwork.selfLink)
+    subnetwork: regions/us-central1/subnetworks/mynetwork
+
+# Create the mynet-eu-vm instance
+- name: mynet-eu-vm
+  type: instance-template.jinja
+  properties:
+    zone: europe-west1-d
+    machineType: n1-standard-1
+    network: $(ref.mynetwork.selfLink)  
+    subnetwork: regions/europe-west1/subnetworks/mynetwork
+'''
+
+
+## example instance-template.jinja
+
+'''
+resources:
+- name: {{ env["name"] }}
+  type: compute.v1.instance  
+  properties:
+     machineType: zones/{{ properties["zone"] }}/machineTypes/{{ properties["machineType"] }}
+     zone: {{ properties["zone"] }}
+     networkInterfaces:
+      - network: {{ properties["network"] }}
+        subnetwork: {{ properties["subnetwork"] }}
+        accessConfigs:
+        - name: External NAT
+          type: ONE_TO_ONE_NAT
+     disks:
+      - deviceName: {{ env["name"] }}
+        type: PERSISTENT
+        boot: true
+        autoDelete: true
+        initializeParams:
+          sourceImage: https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/family/debian-9
+'''
+
+
+# Test depl. man.
+gcloud deployment-manager deployments create $DEPLOYMENT_NAME --config=config.yaml --preview
+
+# Execute depl.
+gcloud deployment-manager deployments update $DEPLOYMENT_NAME
+
+# Delete deployment
+gcloud deployment-manager deployments delete $DEPLOYMENT_NAME
+
+
+# Alternative for deployment-manager could be Terraform
+
+
+
+https://cloud.google.com/deployment-manager/docs/configuration/supported-resource-types
+
+https://cloud.google.com/compute/docs/reference/latest/instances
+
+# convert proto to json
+'''
+echo $1
+sed -i 's/string/"string"/g' $1
+sed -i 's/boolean/"boolean"/g' $1
+sed -i 's/integer/"integer"/g' $1
+sed -i 's/unsigned long/"unsigned long"/g' $1
+sed -i 's/bytes/"bytes"/g' $1
+sed -i 's/(key)/"(key)"/g' $1
+sed -i 's/float/"float"/g' $1
+sed -i 's/etag/"etag"/g' $1
+sed -i 's/long,/"long",/g' $1
+'''
+
+https://www.json2yaml.com/
+
+# URI for compute
+gcloud compute zones list
+
+ # compute unit availability
+gcloud compute machine-types list | grep [YOUR_ZONE]
+
+# URI for network
+gcloud compute networks list
+gcloud compute networks describe default
+
+# URI for image
+gcloud compute images list --uri | grep debian
+
+# example
+'''
+resources:
+- name: appserver
+  type: compute.v1.instance
+  properties:
+    zone: us-west1-b
+    machineType: https://www.googleapis.com/compute/v1/projects/architectingdp/zones/us-west1-b/machineTypes/f1-micro
+    networkInterfaces:
+    - network: https://www.googleapis.com/compute/v1/projects/architectingdp/global/networks/default
+      accessConfigs:
+      - name: External_NAT
+        type: ONE_TO_ONE_NAT
+    disks:
+    - type: PERSISTENT
+      deviceName: boot
+      boot: true
+      autoDelete: true
+      initializeParams:
+        sourceImage: https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-9-stretch-v20170816
+'''
+
+# Deploy
+gcloud deployment-manager deployments create appserver --config appserver.yaml
+
+gcloud deployment-manager deployments list
+
+# Useful py lib
+from setuptools import setup
+python3 setup.py sdist
+
+# Set public access to bucket (with cache headers not for CDN to cache it as best practice)
+gsutil -h 'Content-Type: application/gzip' -h 'Cache-Control:private' cp -a public-read echo-0.0.1.tar.gz gs://$MY_BUCKET
+
+CAP theorem
+ACID & BASE
+
+-- Load Balancing --
+iperf -P
+
+-- Tooling --
+
+# Disk measurement tools;
+Bonnie++
+Copy
+Fio
+Systhetic storage
+
+# Network measurement tools;
+Iperf
+Mesh
+Network
+Netperf
+Ping
+
+# Workload Measurement;
+Perfkit
+Aerospike
+Cassandra
+Hadoop
+HPCC
+MongoDB
+Oldisim
+Redis
